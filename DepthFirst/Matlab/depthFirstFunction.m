@@ -24,7 +24,7 @@ function finished = depthFirstFunction(maze, startingRow, startingCol, endRow, e
     directionsToMoveIn = 0;
 
     %North
-    if northPos < 0 
+    if northPos > 0 
         if maze(northPos, startingCol)==0
             north = true;
             directionsToMoveIn = directionsToMoveIn +1;
