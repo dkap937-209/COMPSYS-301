@@ -1,4 +1,3 @@
-// A C++ Program to implement A* Search Algorithm
 #include <bits/stdc++.h>
 #include "A_star_header.h"
 using namespace std;
@@ -21,8 +20,7 @@ struct cell {
     double f, g, h;
 };
 
-// A Utility Function to check whether given cell (row, col)
-// is a valid cell or not.
+//Checks if a cell is within the bounds of the maze
 bool isValid(int row, int col)
 {
     // Returns true if row number and column number
@@ -31,8 +29,7 @@ bool isValid(int row, int col)
            && (col < COL);
 }
 
-// A Utility Function to check whether the given cell is
-// blocked or not
+//Checks if a cell is blocked or not
 bool isUnBlocked(int grid[][COL], int row, int col)
 {
     // Returns true if the cell is not blocked else false
@@ -43,8 +40,7 @@ bool isUnBlocked(int grid[][COL], int row, int col)
         return (false);
 }
 
-// A Utility Function to check whether destination cell has
-// been reached or not
+//Checks if we have reached the destination
 bool isDestination(int row, int col, Pair dest)
 {
     if (row == dest.first && col == dest.second)
@@ -53,13 +49,10 @@ bool isDestination(int row, int col, Pair dest)
         return (false);
 }
 
-// A Utility Function to calculate the 'h' heuristics.
+//Calculates heuristics using Manhatten Distance formula
 double calculateHValue(int row, int col, Pair dest)
 {
-    // Return using the distance formula
-    return ((double)sqrt(
-            (row - dest.first) * (row - dest.first)
-            + (col - dest.second) * (col - dest.second)));
+    return abs(row-dest.first)+abs(col-dest.second);
 }
 
 // A Utility Function to trace the path from the source
@@ -97,28 +90,26 @@ void tracePath(cell cellDetails[][COL], Pair dest)
 void aStarSearch(int grid[][COL], Pair src, Pair dest)
 {
     // If the source is out of range
-    if (isValid(src.first, src.second) == false) {
+    if (!isValid(src.first, src.second)) {
         printf("Source is invalid\n");
         return;
     }
 
     // If the destination is out of range
-    if (isValid(dest.first, dest.second) == false) {
+    if (!isValid(dest.first, dest.second)) {
         printf("Destination is invalid\n");
         return;
     }
 
     // Either the source or the destination is blocked
-    if (isUnBlocked(grid, src.first, src.second) == false
-        || isUnBlocked(grid, dest.first, dest.second)
-           == false) {
+    if (!isUnBlocked(grid, src.first, src.second)
+        || !isUnBlocked(grid, dest.first, dest.second)) {
         printf("Source or the destination is blocked\n");
         return;
     }
 
     // If the destination cell is the same as source cell
-    if (isDestination(src.first, src.second, dest)
-        == true) {
+    if (isDestination(src.first, src.second, dest)) {
         printf("We are already at the destination\n");
         return;
     }
@@ -129,8 +120,7 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
     bool closedList[ROW][COL];
     memset(closedList, false, sizeof(closedList));
 
-    // Declare a 2D array of structure to hold the details
-    // of that cell
+    //2D array of cells
     cell cellDetails[ROW][COL];
 
     int i, j;
@@ -182,37 +172,17 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
         j = p.second.second;
         closedList[i][j] = true;
 
-        /*
-        Generating all the 8 successor of this cell
 
-            N.W N N.E
-            \ | /
-                \ | /
-            W----Cell----E
-                / | \
-                / | \
-            S.W S S.E
-
-        Cell-->Popped Cell (i, j)
-        N --> North	 (i-1, j)
-        S --> South	 (i+1, j)
-        E --> East	 (i, j+1)
-        W --> West		 (i, j-1)
-        N.E--> North-East (i-1, j+1)
-        N.W--> North-West (i-1, j-1)
-        S.E--> South-East (i+1, j+1)
-        S.W--> South-West (i+1, j-1)*/
-
-        // To store the 'g', 'h' and 'f' of the 8 successors
+        // To store the 'g', 'h' and 'f' of the  directions
         double gNew, hNew, fNew;
 
         //----------- 1st Successor (North) ------------
 
-        // Only process this cell if this is a valid one
-        if (isValid(i - 1, j) == true) {
+        // Check if valid
+        if (isValid(i - 1, j)) {
             // If the destination cell is the same as the
             // current successor
-            if (isDestination(i - 1, j, dest) == true) {
+            if (isDestination(i - 1, j, dest)) {
                 // Set the Parent of the destination cell
                 cellDetails[i - 1][j].parent_i = i;
                 cellDetails[i - 1][j].parent_j = j;
@@ -224,9 +194,8 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
                 // If the successor is already on the closed
                 // list or if it is blocked, then ignore it.
                 // Else do the following
-            else if (closedList[i - 1][j] == false
-                     && isUnBlocked(grid, i - 1, j)
-                        == true) {
+            else if (!closedList[i - 1][j]
+                     && isUnBlocked(grid, i - 1, j)) {
                 gNew = cellDetails[i][j].g + 1.0;
                 hNew = calculateHValue(i - 1, j, dest);
                 fNew = gNew + hNew;
@@ -256,11 +225,10 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 
         //----------- 2nd Successor (South) ------------
 
-        // Only process this cell if this is a valid one
-        if (isValid(i + 1, j) == true) {
-            // If the destination cell is the same as the
-            // current successor
-            if (isDestination(i + 1, j, dest) == true) {
+        // Check if valid
+        if (isValid(i + 1, j)) {
+            // If updated cell position is the destination
+            if (isDestination(i + 1, j, dest)) {
                 // Set the Parent of the destination cell
                 cellDetails[i + 1][j].parent_i = i;
                 cellDetails[i + 1][j].parent_j = j;
@@ -272,9 +240,8 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
                 // If the successor is already on the closed
                 // list or if it is blocked, then ignore it.
                 // Else do the following
-            else if (closedList[i + 1][j] == false
-                     && isUnBlocked(grid, i + 1, j)
-                        == true) {
+            else if (!closedList[i + 1][j]
+                     && isUnBlocked(grid, i + 1, j)) {
                 gNew = cellDetails[i][j].g + 1.0;
                 hNew = calculateHValue(i + 1, j, dest);
                 fNew = gNew + hNew;
@@ -303,11 +270,10 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 
         //----------- 3rd Successor (East) ------------
 
-        // Only process this cell if this is a valid one
-        if (isValid(i, j + 1) == true) {
-            // If the destination cell is the same as the
-            // current successor
-            if (isDestination(i, j + 1, dest) == true) {
+        // Check if valid
+        if (isValid(i, j + 1)) {
+            // If updated cell position is the destination
+            if (isDestination(i, j + 1, dest)) {
                 // Set the Parent of the destination cell
                 cellDetails[i][j + 1].parent_i = i;
                 cellDetails[i][j + 1].parent_j = j;
@@ -320,9 +286,8 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
                 // If the successor is already on the closed
                 // list or if it is blocked, then ignore it.
                 // Else do the following
-            else if (closedList[i][j + 1] == false
-                     && isUnBlocked(grid, i, j + 1)
-                        == true) {
+            else if (!closedList[i][j + 1]
+                     && isUnBlocked(grid, i, j + 1)) {
                 gNew = cellDetails[i][j].g + 1.0;
                 hNew = calculateHValue(i, j + 1, dest);
                 fNew = gNew + hNew;
@@ -352,11 +317,10 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 
         //----------- 4th Successor (West) ------------
 
-        // Only process this cell if this is a valid one
-        if (isValid(i, j - 1) == true) {
-            // If the destination cell is the same as the
-            // current successor
-            if (isDestination(i, j - 1, dest) == true) {
+        // Check if valid
+        if (isValid(i, j - 1)) {
+            // If updated cell position is the destination
+            if (isDestination(i, j - 1, dest)) {
                 // Set the Parent of the destination cell
                 cellDetails[i][j - 1].parent_i = i;
                 cellDetails[i][j - 1].parent_j = j;
@@ -369,9 +333,8 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
                 // If the successor is already on the closed
                 // list or if it is blocked, then ignore it.
                 // Else do the following
-            else if (closedList[i][j - 1] == false
-                     && isUnBlocked(grid, i, j - 1)
-                        == true) {
+            else if (!closedList[i][j - 1]
+                     && isUnBlocked(grid, i, j - 1)) {
                 gNew = cellDetails[i][j].g + 1.0;
                 hNew = calculateHValue(i, j - 1, dest);
                 fNew = gNew + hNew;
@@ -399,204 +362,6 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
             }
         }
 
-        //----------- 5th Successor (North-East)
-        //------------
-
-        // Only process this cell if this is a valid one
-        if (isValid(i - 1, j + 1) == true) {
-            // If the destination cell is the same as the
-            // current successor
-            if (isDestination(i - 1, j + 1, dest) == true) {
-                // Set the Parent of the destination cell
-                cellDetails[i - 1][j + 1].parent_i = i;
-                cellDetails[i - 1][j + 1].parent_j = j;
-                printf("The destination cell is found\n");
-                tracePath(cellDetails, dest);
-                foundDest = true;
-                return;
-            }
-
-                // If the successor is already on the closed
-                // list or if it is blocked, then ignore it.
-                // Else do the following
-            else if (closedList[i - 1][j + 1] == false
-                     && isUnBlocked(grid, i - 1, j + 1)
-                        == true) {
-                gNew = cellDetails[i][j].g + 1.414;
-                hNew = calculateHValue(i - 1, j + 1, dest);
-                fNew = gNew + hNew;
-
-                // If it isn’t on the open list, add it to
-                // the open list. Make the current square
-                // the parent of this square. Record the
-                // f, g, and h costs of the square cell
-                //			 OR
-                // If it is on the open list already, check
-                // to see if this path to that square is
-                // better, using 'f' cost as the measure.
-                if (cellDetails[i - 1][j + 1].f == FLT_MAX
-                    || cellDetails[i - 1][j + 1].f > fNew) {
-                    openList.insert(make_pair(
-                            fNew, make_pair(i - 1, j + 1)));
-
-                    // Update the details of this cell
-                    cellDetails[i - 1][j + 1].f = fNew;
-                    cellDetails[i - 1][j + 1].g = gNew;
-                    cellDetails[i - 1][j + 1].h = hNew;
-                    cellDetails[i - 1][j + 1].parent_i = i;
-                    cellDetails[i - 1][j + 1].parent_j = j;
-                }
-            }
-        }
-
-        //----------- 6th Successor (North-West)
-        //------------
-
-        // Only process this cell if this is a valid one
-        if (isValid(i - 1, j - 1) == true) {
-            // If the destination cell is the same as the
-            // current successor
-            if (isDestination(i - 1, j - 1, dest) == true) {
-                // Set the Parent of the destination cell
-                cellDetails[i - 1][j - 1].parent_i = i;
-                cellDetails[i - 1][j - 1].parent_j = j;
-                printf("The destination cell is found\n");
-                tracePath(cellDetails, dest);
-                foundDest = true;
-                return;
-            }
-
-                // If the successor is already on the closed
-                // list or if it is blocked, then ignore it.
-                // Else do the following
-            else if (closedList[i - 1][j - 1] == false
-                     && isUnBlocked(grid, i - 1, j - 1)
-                        == true) {
-                gNew = cellDetails[i][j].g + 1.414;
-                hNew = calculateHValue(i - 1, j - 1, dest);
-                fNew = gNew + hNew;
-
-                // If it isn’t on the open list, add it to
-                // the open list. Make the current square
-                // the parent of this square. Record the
-                // f, g, and h costs of the square cell
-                //			 OR
-                // If it is on the open list already, check
-                // to see if this path to that square is
-                // better, using 'f' cost as the measure.
-                if (cellDetails[i - 1][j - 1].f == FLT_MAX
-                    || cellDetails[i - 1][j - 1].f > fNew) {
-                    openList.insert(make_pair(
-                            fNew, make_pair(i - 1, j - 1)));
-                    // Update the details of this cell
-                    cellDetails[i - 1][j - 1].f = fNew;
-                    cellDetails[i - 1][j - 1].g = gNew;
-                    cellDetails[i - 1][j - 1].h = hNew;
-                    cellDetails[i - 1][j - 1].parent_i = i;
-                    cellDetails[i - 1][j - 1].parent_j = j;
-                }
-            }
-        }
-
-        //----------- 7th Successor (South-East)
-        //------------
-
-        // Only process this cell if this is a valid one
-        if (isValid(i + 1, j + 1) == true) {
-            // If the destination cell is the same as the
-            // current successor
-            if (isDestination(i + 1, j + 1, dest) == true) {
-                // Set the Parent of the destination cell
-                cellDetails[i + 1][j + 1].parent_i = i;
-                cellDetails[i + 1][j + 1].parent_j = j;
-                printf("The destination cell is found\n");
-                tracePath(cellDetails, dest);
-                foundDest = true;
-                return;
-            }
-
-                // If the successor is already on the closed
-                // list or if it is blocked, then ignore it.
-                // Else do the following
-            else if (closedList[i + 1][j + 1] == false
-                     && isUnBlocked(grid, i + 1, j + 1)
-                        == true) {
-                gNew = cellDetails[i][j].g + 1.414;
-                hNew = calculateHValue(i + 1, j + 1, dest);
-                fNew = gNew + hNew;
-
-                // If it isn’t on the open list, add it to
-                // the open list. Make the current square
-                // the parent of this square. Record the
-                // f, g, and h costs of the square cell
-                //			 OR
-                // If it is on the open list already, check
-                // to see if this path to that square is
-                // better, using 'f' cost as the measure.
-                if (cellDetails[i + 1][j + 1].f == FLT_MAX
-                    || cellDetails[i + 1][j + 1].f > fNew) {
-                    openList.insert(make_pair(
-                            fNew, make_pair(i + 1, j + 1)));
-
-                    // Update the details of this cell
-                    cellDetails[i + 1][j + 1].f = fNew;
-                    cellDetails[i + 1][j + 1].g = gNew;
-                    cellDetails[i + 1][j + 1].h = hNew;
-                    cellDetails[i + 1][j + 1].parent_i = i;
-                    cellDetails[i + 1][j + 1].parent_j = j;
-                }
-            }
-        }
-
-        //----------- 8th Successor (South-West)
-        //------------
-
-        // Only process this cell if this is a valid one
-        if (isValid(i + 1, j - 1) == true) {
-            // If the destination cell is the same as the
-            // current successor
-            if (isDestination(i + 1, j - 1, dest) == true) {
-                // Set the Parent of the destination cell
-                cellDetails[i + 1][j - 1].parent_i = i;
-                cellDetails[i + 1][j - 1].parent_j = j;
-                printf("The destination cell is found\n");
-                tracePath(cellDetails, dest);
-                foundDest = true;
-                return;
-            }
-
-                // If the successor is already on the closed
-                // list or if it is blocked, then ignore it.
-                // Else do the following
-            else if (closedList[i + 1][j - 1] == false
-                     && isUnBlocked(grid, i + 1, j - 1)
-                        == true) {
-                gNew = cellDetails[i][j].g + 1.414;
-                hNew = calculateHValue(i + 1, j - 1, dest);
-                fNew = gNew + hNew;
-
-                // If it isn’t on the open list, add it to
-                // the open list. Make the current square
-                // the parent of this square. Record the
-                // f, g, and h costs of the square cell
-                //			 OR
-                // If it is on the open list already, check
-                // to see if this path to that square is
-                // better, using 'f' cost as the measure.
-                if (cellDetails[i + 1][j - 1].f == FLT_MAX
-                    || cellDetails[i + 1][j - 1].f > fNew) {
-                    openList.insert(make_pair(
-                            fNew, make_pair(i + 1, j - 1)));
-
-                    // Update the details of this cell
-                    cellDetails[i + 1][j - 1].f = fNew;
-                    cellDetails[i + 1][j - 1].g = gNew;
-                    cellDetails[i + 1][j - 1].h = hNew;
-                    cellDetails[i + 1][j - 1].parent_i = i;
-                    cellDetails[i + 1][j - 1].parent_j = j;
-                }
-            }
-        }
     }
 
     // When the destination cell is not found and the open
@@ -604,10 +369,7 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
     // reach the destination cell. This may happen when the
     // there is no way to destination cell (due to
     // blockages)
-    if (foundDest == false)
-        printf("Failed to find the Destination Cell\n");
-
-    return;
+    printf("Failed to find the Destination Cell\n");
 }
 
 // Driver program to test above function
@@ -631,7 +393,7 @@ int main()
     Pair src = make_pair(7, 1);
 
     // Destination is the left-most top-most corner
-    Pair dest = make_pair(5, 1);
+    Pair dest = make_pair(6, 2);
 
     aStarSearch(grid, src, dest);
 
