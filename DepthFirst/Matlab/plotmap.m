@@ -7,6 +7,7 @@ plot(Y,X,'k');
 axis([0, 20, 0, 16]);
 axis off
 [maprows,mapcols]=size(map);
+steps = 0;
 
 for i=1:maprows
     for j=1:mapcols
@@ -16,10 +17,12 @@ for i=1:maprows
        if(map(i,j) == -1)
            position=[j, 16-i];
            rectangle('Position',[position,1,1],'FaceColor','y');
+           steps = steps+1;
        end  
     end
 end
 
+disp("Number of steps taken: " + steps)
 position = [endCol, 16-endRow];
 rectangle('Position',[position,1,1],'FaceColor','g');
 
