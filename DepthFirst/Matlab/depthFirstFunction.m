@@ -10,7 +10,12 @@ function finished = depthFirstFunction(maze, startingRow, startingCol, endRow, e
     mazeSize = size(maze);
     MAX_HEIGHT = mazeSize(1);
     MAX_WIDTH = mazeSize(2);
+    INF = 999999;
     
+    %Used to help find which direction is closest to destination
+    %Order: North, East, South, West
+    heuristicVals = [INF INF INF INF];
+       
     %Check in each direction we can go
     northPos = startingRow - 1;
     eastPos = startingCol + 1;
@@ -27,6 +32,7 @@ function finished = depthFirstFunction(maze, startingRow, startingCol, endRow, e
     if northPos > 0 
         if maze(northPos, startingCol)==0
             north = true;
+            heuristicVals(1) = abs(startingCol - endCol) + abs(northPos - endRow);
             directionsToMoveIn = directionsToMoveIn +1;
         end 
     end
@@ -35,6 +41,7 @@ function finished = depthFirstFunction(maze, startingRow, startingCol, endRow, e
     if eastPos <= MAX_WIDTH 
         if maze(startingRow, eastPos)==0
             east = true;
+            heuristicVals(2) = abs(eastPos- endCol) + abs(startingRow - endRow);
             directionsToMoveIn = directionsToMoveIn +1;
         end 
     end
@@ -43,6 +50,7 @@ function finished = depthFirstFunction(maze, startingRow, startingCol, endRow, e
     if southPos <= MAX_HEIGHT 
         if maze(southPos, startingCol)==0
             south = true;
+            heuristicVals(3) = abs(startingCol - endCol) + abs(southPos - endRow);
             directionsToMoveIn = directionsToMoveIn +1;
         end 
     end
@@ -51,20 +59,22 @@ function finished = depthFirstFunction(maze, startingRow, startingCol, endRow, e
     if westPos > 0 
         if maze(startingRow, westPos)==0
            west = true;
+           heuristicVals(4) = abs(westPos - endCol) + abs(startingRow - endRow);
            directionsToMoveIn = directionsToMoveIn +1;
         end 
     end
     
-    %If we can only move in one direction
     if finished == true
         return
     elseif(startingRow == endRow && startingCol == endCol)
         maze(startingRow, startingCol) = -1;
         disp("Finished")
         disp(maze)
+%         plotmap(maze, endRow, endCol)
         finished = true;
         
-     elseif(directionsToMoveIn == 1)
+     elseif(directionsToMoveIn == 1)    
+         
         if(north == true && finished == false)
             disp("move north")
             maze(startingRow, startingCol) = -1;
@@ -93,19 +103,23 @@ function finished = depthFirstFunction(maze, startingRow, startingCol, endRow, e
     %If we can move in multiple directions    
     elseif directionsToMoveIn >1
          maze(startingRow,startingCol) = -1;
-         if north == true && finished == false
+         plotmap(maze, endRow, endCol)
+         smallestH = min(heuristicVals);  
+         disp(heuristicVals)
+         disp(smallestH)
+         if north == true && finished == false && smallestH == heuristicVals(1)
              finished = depthFirstFunction(maze, northPos, startingCol, endRow, endCol, intersectionRow, intersectionCol);
          end
          
-         if east == true && finished == false
+         if east == true && finished == false && smallestH == heuristicVals(2)
              finished = depthFirstFunction(maze, startingRow, eastPos, endRow, endCol, intersectionRow, intersectionCol);
          end
          
-         if south == true && finished == false
+         if south == true && finished == false && smallestH == heuristicVals(3)
              finished = depthFirstFunction(maze, southPos, startingCol, endRow, endCol, intersectionRow, intersectionCol);
          end
          
-         if west == true && finished == false
+         if west == true && finished == false && smallestH == heuristicVals(4)
              finished = depthFirstFunction(maze, startingRow, westPos, endRow, endCol, intersectionRow, intersectionCol);
          end
         
@@ -118,7 +132,7 @@ function finished = depthFirstFunction(maze, startingRow, startingCol, endRow, e
             depthFirstFunction(maze, intersectionRow, intersectionCol, endRow, endCol);
         end
 
-     end 
-
+    end 
+     
 end
 
