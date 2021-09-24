@@ -1,5 +1,14 @@
 import queue
 
+def createMaze3():
+    maze = [["1","1","1","1","O","1","1",],
+            ["1","1"," "," "," ","1","1",],
+            ["1","1"," ","1"," "," ","1",],
+            ["1","1"," ","1"," ","1","1",],
+            ["1","1"," ","1"," ","1","1",],
+            ["1","1"," "," "," "," ","1",],
+            ["1","1","X","1","1","1","1",]]
+    return maze
 
 def createMaze():
     maze = []
@@ -86,7 +95,7 @@ def valid(maze, moves):
 
         if not(0 <= i < len(maze[0]) and 0 <= j < len(maze)):
             return False
-        elif (maze[j][i] == "#"):
+        elif (maze[j][i] == "1"):
             return False
 
     return True
@@ -127,7 +136,7 @@ def findEnd(maze, moves):
 nums = queue.Queue()
 nums.put("")
 add = ""
-maze  = createMaze2()
+maze  = createMaze3()
 
 while not findEnd(maze, add): 
     add = nums.get()
