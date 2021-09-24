@@ -1,4 +1,14 @@
 import queue
+import numpy as np
+
+
+def createMaze4():
+    maze = []
+    with open ("map.txt") as TextFile:
+        for line in TextFile:
+            objects = [line.strip() for item in line]
+            maze.append(objects)
+    print(maze)
 
 def createMaze3():
     maze = [["1","1","1","1","O","1","1",],
@@ -136,6 +146,7 @@ def findEnd(maze, moves):
 nums = queue.Queue()
 nums.put("")
 add = ""
+maze1 = createMaze4()
 maze  = createMaze3()
 
 while not findEnd(maze, add): 
