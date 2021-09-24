@@ -1,15 +1,6 @@
 import queue
 import numpy as np
 
-
-def createMaze4():
-    maze = []
-    with open ("map.txt") as TextFile:
-        for line in TextFile:
-            objects = [line.strip() for item in line]
-            maze.append(objects)
-    print(maze)
-
 mymaze = []
 with open('map.txt', 'r') as f:
     
