@@ -4,7 +4,7 @@ import numpy as np
 maze = []
 with open('map.txt', 'r') as f:
     
-    for i in range (15):                                     
+    for i in range (15):                                     #Change back to 15
         lines = f.readline()
         lines = list(lines)
         lines.pop()
@@ -40,6 +40,8 @@ def printMaze(maze, startPosX, startPosY, endPosX, endPosY, path=""):
                 print(col + " ", end="")
             elif (j, i) in pos:
                 print("  ", end="")
+            elif col == "@":
+                print("0" + " ", end="")       
             else:
                 print(col + " ", end="")
         print()
@@ -51,37 +53,30 @@ def valid(maze, moves, startPosX, startPosY):
     j = startPosY
     latestMove = ""
     for move in (moves):
-        if (move == "L"):
-            if (latestMove == "R"):
-                return False
-            else:
-                i-= 1
-                latestMove = "L"
-        elif (move == "R"):
-            if (latestMove == "L"):
-                return False
-            else:
-                i += 1
-                latestMove = "R"
-        elif (move == "U"):
-            if (latestMove == "D"):
-                return False
-            else:
-                j -= 1
-                latestMove = "U"
+        if (move == "L") and (latestMove != "R"):
+            i -= 1
+            latestMove = "L"
 
-        elif (move == "D"):
-            if (latestMove == "U"):
-                return False
-            else: 
-                j += 1
-                latestMove = "D"
+        elif (move == "R") and (latestMove != "L"):
+            i += 1
+            latestMove = "R"
+
+        elif (move == "U") and (latestMove != "D"):
+            j -= 1
+            latestMove = "U"
+
+        elif (move == "D") and (latestMove != "U"):
+            j += 1
+            latestMove = "D"
 
     if not(0 <= i < len(maze[0]) and 0 <= j < len(maze)):                       # If co-ordinate is outside the maze, return false.
         return False
     elif (maze[j][i] == "1"):                                                   # If co-ordinate is a wall, return false
         return False
+    elif (maze[j][i] == "@"):
+        return False
 
+    maze[j][i] = "@"
     return True
 
 def findEnd(maze, moves, startPosX, startPosY, endPosX, endPosY):
@@ -129,5 +124,3 @@ else:
         if nums.empty():
             print("\nNo path found\n")
             break
-
-    
