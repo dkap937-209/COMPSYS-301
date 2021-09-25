@@ -1,8 +1,6 @@
 package net.codejava;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
-public class Pair {
-    int x, y;
+public Pair(int x, int y) {
+    this.y = x;
+    this.x = y;
 }
