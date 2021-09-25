@@ -1,17 +1,15 @@
 import queue
 import numpy as np
 
-mymaze = []
+maze = []
 with open('map.txt', 'r') as f:
     
     for i in range (15):
         lines = f.readline()
         lines = list(lines)
         lines.pop()
-        mymaze.append(lines)
+        maze.append(lines)
     f.close()
-
-    print (mymaze)
 
 
 def printMaze(maze, startPosX, startPosY, endPosX, endPosY, path=""):
@@ -64,9 +62,9 @@ def valid(maze, moves, startPosX, startPosY):
         elif move == "D":
             j += 1
 
-        if not(0 <= i < len(maze[0]) and 0 <= j < len(maze)):
+        if not(0 <= i < len(maze[0]) and 0 <= j < len(maze)):                       # If co-ordinate is outside the maze, return false.
             return False
-        elif (maze[j][i] == "1"):
+        elif (maze[j][i] == "1"):                                                   # If co-ordinate is a wall, return false
             return False
     return True
 
@@ -98,7 +96,6 @@ def findEnd(maze, moves, startPosX, startPosY, endPosX, endPosY):
 nums = queue.Queue()
 nums.put("")
 add = ""
-maze  = mymaze
 startPosX = 1
 startPosY = 1
 endPosX = 2
