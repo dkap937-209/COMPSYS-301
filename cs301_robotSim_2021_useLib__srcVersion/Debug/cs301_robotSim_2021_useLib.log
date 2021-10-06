@@ -1,0 +1,15 @@
+﻿  fungYangCs301SimMain.cpp
+D:\vs1676\cs301_fung_robotSim_2021\cs301_robotSim_2021_useLib\fungYangCs301SimMain.cpp(64,24): warning C4305: '=': truncation from 'double' to 'float'
+D:\vs1676\cs301_fung_robotSim_2021\cs301_robotSim_2021_useLib\fungYangCs301SimMain.cpp(90,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\vs1676\cs301_fung_robotSim_2021\cs301_robotSim_2021_useLib\fungYangCs301SimMain.cpp(127,21): warning C4018: '<': signed/unsigned mismatch
+fungYangCs301SimMain.obj : error LNK2019: unresolved external symbol "int __cdecl FungGlAppMainFuction(int,char * *)" (?FungGlAppMainFuction@@YAHHPAPAD@Z) referenced in function _main
+fungYangCs301SimMain.obj : error LNK2019: unresolved external symbol "int __cdecl coordToCellX(float)" (?coordToCellX@@YAHM@Z) referenced in function "int __cdecl virtualCarUpdate(void)" (?virtualCarUpdate@@YAHXZ)
+fungYangCs301SimMain.obj : error LNK2019: unresolved external symbol "int __cdecl coordToCellY(float)" (?coordToCellY@@YAHM@Z) referenced in function "int __cdecl virtualCarUpdate(void)" (?virtualCarUpdate@@YAHXZ)
+fungYangCs301SimMain.obj : error LNK2019: unresolved external symbol "float __cdecl floorToCoordX(float)" (?floorToCoordX@@YAMM@Z) referenced in function "int __cdecl virtualCarInit(void)" (?virtualCarInit@@YAHXZ)
+fungYangCs301SimMain.obj : error LNK2019: unresolved external symbol "float __cdecl floorToCoordY(float)" (?floorToCoordY@@YAMM@Z) referenced in function "int __cdecl virtualCarInit(void)" (?virtualCarInit@@YAHXZ)
+fungYangCs301SimMain.obj : error LNK2019: unresolved external symbol "int __cdecl coordToFloorX(float)" (?coordToFloorX@@YAHM@Z) referenced in function "int __cdecl virtualCarUpdate(void)" (?virtualCarUpdate@@YAHXZ)
+fungYangCs301SimMain.obj : error LNK2019: unresolved external symbol "int __cdecl coordToFloorY(float)" (?coordToFloorY@@YAHM@Z) referenced in function "int __cdecl virtualCarUpdate(void)" (?virtualCarUpdate@@YAHXZ)
+fungYangCs301SimMain.obj : error LNK2019: unresolved external symbol "public: void __thiscall highPerformanceTimer::resetTimer(void)" (?resetTimer@highPerformanceTimer@@QAEXXZ) referenced in function "int __cdecl virtualCarUpdate(void)" (?virtualCarUpdate@@YAHXZ)
+fungYangCs301SimMain.obj : error LNK2019: unresolved external symbol "public: double __thiscall highPerformanceTimer::getTimer(void)" (?getTimer@highPerformanceTimer@@QAENXZ) referenced in function "int __cdecl virtualCarUpdate(void)" (?virtualCarUpdate@@YAHXZ)
+fungYangCs301SimMain.obj : error LNK2001: unresolved external symbol "float floorToCoordScaleFactor" (?floorToCoordScaleFactor@@3MA)
+D:\vs1676\cs301_fung_robotSim_2021\Debug\cs301_robotSim_2021_useLib.exe : fatal error LNK1120: 10 unresolved externals
