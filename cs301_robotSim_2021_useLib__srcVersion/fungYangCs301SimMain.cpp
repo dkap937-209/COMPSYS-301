@@ -18,6 +18,7 @@
 #include <vector>
 #include <iostream>
 #include "highPerformanceTimer.h"//just to include if timer function is required by user.
+#include "Astar_Header.h"
 
 using namespace std;
 

@@ -24,9 +24,15 @@
     <ClInclude Include="mazeGen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Astar_Header.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="fungYangCs301SimMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AStar_HelperFunctions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
