@@ -57,6 +57,7 @@ float virtualCarAngularSpeed_seed;
 //added2021_2_22
 float virtualCarLinearSpeedFloor;
 float currentCarPosFloor_X, currentCarPosFloor_Y;
+double distanceTravelled = 0.0;							//Variable to track distance travelled by Robot.
 
 //TODO: THis is where we should call our path finding algorithm to find the shortest path.
 //When doing finding multiple food particles, we would need to recalculate each time
@@ -78,10 +79,13 @@ int virtualCarInit()
 	//maxDarkDefValueTH = 20;
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+	
+
 	virtualCarLinearSpeed_seed = virtualCarLinearSpeedFloor * floorToCoordScaleFactor;//coord
 
 	currentCarPosCoord_X = floorToCoordX(currentCarPosFloor_X);
 	currentCarPosCoord_Y = floorToCoordY(currentCarPosFloor_Y);
+	myTimer.resetTimer();
 
 	return 1;
 }
@@ -105,13 +109,36 @@ int virtualCarUpdate()
 	}
     //}------------------------------------
 
+	if (distanceTravelled == 10.0) {
+		setVirtualCarSpeed(0.0, 0.0);
+		cout << "Finished with time: " << (myTimer.getTimer()) << endl;
+	}
+	else {
+		setVirtualCarSpeed(0.5, 0.0);
+		distanceTravelled += 0.5;
+	}
+
+	//if (myTimer.getTimer() > 3) {
+	//	setVirtualCarSpeed(0.5, 30.0);
+	//	cout << "=turning=" << endl;
+	//} else { 
+	//	setVirtualCarSpeed(0.5, 0.0);
+	//	cout << "=straight=" << endl;
+	//}
+	//	
+	//if (myTimer.getTimer() > 5) {
+	//	myTimer.resetTimer();
+	//} 
+
 	//{------------------------------------
 	//updat linear and rotational speed based on sensor information
-	if (blackSensorCount > 0.0)
-		setVirtualCarSpeed(virtualCarLinearSpeed_seed, virtualCarAngularSpeed_seed*tiltSum);
+//	if (blackSensorCount > 0.0)
+//		setVirtualCarSpeed(0.0, 0.0);
+		//setVirtualCarSpeed(virtualCarLinearSpeed_seed, virtualCarAngularSpeed_seed*tiltSum);
 		//setVirtualCarSpeed(0.60, 40.0*tiltSum);
-	else
-	    setVirtualCarSpeed(0.0, virtualCarAngularSpeed_seed);
+//	else
+//		setVirtualCarSpeed(0.0, 0.0);
+		//setVirtualCarSpeed(0.0, virtualCarAngularSpeed_seed);
 		//setVirtualCarSpeed(0.0, 40.0);
 	//}---------------------------------------
 
@@ -119,22 +146,22 @@ int virtualCarUpdate()
 	//{--------------------------------------------------------------
 	
 	
-	if (myTimer.getTimer() > 0.5)
-	{
-		myTimer.resetTimer();
-		//for (int i = 0; i < ghostInfoPackList.size(); i++)
-		//	cout << ghostInfoPackList[i].ghostType << " , " << ghostInfoPackList[i].direction << endl;
-		cout << "=====================================" << endl;
-		cout << "current car floor X, Y, theta = " << coordToFloorX(currentCarPosCoord_X) << " , " << coordToFloorY(currentCarPosCoord_Y) << " , " << currentCarAngle << endl;
-		cout << "current Cell X, Y = " << coordToCellX(currentCarPosCoord_X) << " , " << coordToCellY(currentCarPosCoord_Y) << endl;
-		cout << "-----------------------------------------" << endl;
-		cout << " ghost list info:" << endl;
-		for (int i = 0; i < ghostInfoPackList.size(); i++)
-		{
-			cout << "g[" << i << "]: (" << ghostInfoPackList[i].coord_x << ", " << ghostInfoPackList[i].coord_y <<"); [s="<<
-				ghostInfoPackList[i].speed<<"; [d="<< ghostInfoPackList[i].direction << "]; [T=" << ghostInfoPackList[i].ghostType<<"]" << endl;
-		}
-	}
+	//if (myTimer.getTimer() > 0.5)
+	//{
+	//	myTimer.resetTimer();
+	//	//for (int i = 0; i < ghostInfoPackList.size(); i++)
+	//	//	cout << ghostInfoPackList[i].ghostType << " , " << ghostInfoPackList[i].direction << endl;
+	//	cout << "=====================================" << endl;
+	//	cout << "current car floor X, Y, theta = " << coordToFloorX(currentCarPosCoord_X) << " , " << coordToFloorY(currentCarPosCoord_Y) << " , " << currentCarAngle << endl;
+	//	cout << "current Cell X, Y = " << coordToCellX(currentCarPosCoord_X) << " , " << coordToCellY(currentCarPosCoord_Y) << endl;
+	//	cout << "-----------------------------------------" << endl;
+	//	cout << " ghost list info:" << endl;
+	//	for (int i = 0; i < ghostInfoPackList.size(); i++)
+	//	{
+	//		cout << "g[" << i << "]: (" << ghostInfoPackList[i].coord_x << ", " << ghostInfoPackList[i].coord_y <<"); [s="<<
+	//			ghostInfoPackList[i].speed<<"; [d="<< ghostInfoPackList[i].direction << "]; [T=" << ghostInfoPackList[i].ghostType<<"]" << endl;
+	//	}
+	//}
 	
 	//}---------------------------------------------------------------
 	
