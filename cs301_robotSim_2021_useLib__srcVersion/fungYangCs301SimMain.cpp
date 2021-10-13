@@ -19,6 +19,8 @@
 #include <iostream>
 #include "highPerformanceTimer.h"//just to include if timer function is required by user.
 #include "Astar_Header.h"
+#include <stdio.h>
+#include <fstream>
 
 using namespace std;
 
@@ -33,6 +35,8 @@ int sensorPopulationAlgorithmID;
 float sensorSeparation;
 float num_sensors;
 extern int maxDarkDefValueTH;
+int map[15][19];
+void myMapRead(void);
 
 vector<int> virtualCarSensorStates;
 
@@ -168,6 +172,30 @@ int virtualCarUpdate()
 	return 1;
 }
 //}=============================================================
+
+void myMapRead(void) {
+	int rowIndex = 0;
+	int columnIndex;
+	printf("\n");
+	std::ifstream file("map/map.txt");
+	if (file.is_open()) {
+		std::string line;
+		while (std::getline(file, line)) {
+			for (columnIndex = 0; columnIndex < line.length(); columnIndex++) {
+				if (line[columnIndex] == '0') {
+					map[rowIndex][columnIndex] = 0;
+				}
+				else {
+					map[rowIndex][columnIndex] = 1;
+				}
+			}
+			rowIndex++;
+		}
+		printf("\n");
+		file.close();
+	}
+}
+
 
 int main(int argc, char** argv)
 {
