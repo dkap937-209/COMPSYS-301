@@ -244,11 +244,38 @@ void readFoodList(void) {
 	if (file.is_open()) {
 		std::string line;
 		while (std::getline(file, line)) {
-			foodList.emplace_back(make_pair(line[0], line[1]));
+			string firstPos, secondPos, thirdPos, fourthPos, fifthPos, rowPos, colPos;
+			int rowVal, colVal;
+
+			firstPos = line[0];
+			secondPos = line[1];
+			thirdPos = line[2];
+			fourthPos = line[3];
+			fifthPos = line[4];
+
+			if (secondPos != "32") {
+				rowPos = firstPos + secondPos;
+			}
+
+			if (thirdPos == " ") {
+				colPos = fourthPos + fifthPos;
+			}
+			else if (fourthPos != " ") {
+				colPos = thirdPos + fourthPos;
+			}
+
+			stringstream conv2IntRow(rowPos);
+			conv2IntRow >> rowVal;
+			stringstream conv2IntCol(colPos);
+			conv2IntCol >> colVal;
+
+			foodList.emplace_back(make_pair(rowVal, colVal));
 		}
 		file.close();
 	}
 }
+
+
 
 
 int main(int argc, char** argv)

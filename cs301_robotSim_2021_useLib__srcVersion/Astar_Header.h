@@ -23,6 +23,7 @@ constexpr auto COL = 19;
 #include <vector>
 #include <string>
 #include <stack>
+#include <sstream>
 typedef pair<int, int> Pair;
 typedef tuple<double, int, int> Tuple;
 typedef pair<double, pair<int, int> > pPair;
