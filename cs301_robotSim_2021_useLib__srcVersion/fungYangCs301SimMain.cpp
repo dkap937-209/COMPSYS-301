@@ -167,10 +167,6 @@ int virtualCarUpdate()
 	}
 
 
-
-
-
-
 	//{------------------------------------
 	//updat linear and rotational speed based on sensor information
 //	if (blackSensorCount > 0.0)

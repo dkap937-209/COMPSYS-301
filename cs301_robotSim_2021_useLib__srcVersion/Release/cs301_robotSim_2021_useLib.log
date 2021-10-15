@@ -1,20 +1,7 @@
-﻿  fungYangCs301SimMain.cpp
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(83,24): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(122,41): warning C4244: 'argument': conversion from '_Ty1' to 'float', possible loss of data
-          with
-          [
-              _Ty1=int
-          ]
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(122,37): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(123,41): warning C4244: 'argument': conversion from '_Ty2' to 'float', possible loss of data
-          with
-          [
-              _Ty2=int
-          ]
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(123,37): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(140,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(220,38): warning C4018: '<': signed/unsigned mismatch
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(236,6): warning C4101: 'columnIndex': unreferenced local variable
+﻿  AStar_HelperFunctions.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\float.h(91,1): warning C4005: 'FLT_MAX': macro redefinition
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\AStar_HelperFunctions.cpp(1): message : see previous definition of 'FLT_MAX'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\AStar_HelperFunctions.cpp(96,23): warning C4018: '<': signed/unsigned mismatch
   Generating code
   Finished generating code
 cs301_robotSim_lib_2021.lib(mainFungGLAppEngin.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(mainFungGLAppEngin.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
