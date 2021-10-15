@@ -42,8 +42,14 @@ array<array<int, COL>, ROW> map = { {} };
 //to get to the destination
 vector<string> directions;
 vector<Pair> foodList;
+int currentmove;
+int prevmove = 4;
+int index = 0;
+int movefinished = 0;
 
 void myMapRead(void);
+void turnleft();
+void turnright();
 void readFoodList(void);
 
 vector<int> virtualCarSensorStates;
@@ -123,7 +129,8 @@ int virtualCarInit()
 	for (auto& direction : directions) {
 		printf("%s, ", direction.c_str());
 	}
-
+	currentCarPosFloor_X = cellToFloorX(src.first);
+	currentCarPosFloor_Y = cellToFloorY(src.second);
 
 	virtualCarLinearSpeed_seed = virtualCarLinearSpeedFloor * floorToCoordScaleFactor;//coord
 
@@ -151,16 +158,116 @@ int virtualCarUpdate()
 			blackSensorCount += 1.0;
 		}
 	}
+	if (myTimer.getTimer() > 1) {
+		if (directions[index] == "U") {
+			currentmove = 1;
+		}
+		if (directions[index] == "R") {
+			currentmove = 2;
+		}
+		if (directions[index] == "D") {
+			currentmove = 3;
+		}
+		if (directions[index] == "L") {
+			currentmove = 4;
+		}
+		if ((currentmove == prevmove + 1) || (currentmove == 4 && prevmove == 1)) {
+			if (myTimer.getTimer() < 3) {
+				setVirtualCarSpeed(0.0, -45);
+			}
+			else {
+				setVirtualCarSpeed(1.0, 0.0);
+				myTimer.resetTimer();
+				index++;
+				prevmove = currentmove;
+				//printf("%d", (currentmove));
+				printf("%c", (directions[index]));
+			}
+		}
+		else if ((currentmove == prevmove + 2) || (currentmove == 3 && prevmove == 1) || (currentmove == 4 && prevmove == 2)) {
+			if (myTimer.getTimer() < 5) {
+				setVirtualCarSpeed(0.0, 45);
+			}
+			else {
+				setVirtualCarSpeed(1.0, 0.0);
+				myTimer.resetTimer();
+				index++;
+				prevmove = currentmove;
+				//printf("%d", (currentmove));
+				printf("%c", (directions[index]));
+			}
+		}
+		else if ((currentmove == prevmove - 1) || (currentmove == 1 && prevmove == 4)) {
+			if (myTimer.getTimer() < 3) {
+				setVirtualCarSpeed(0.0, 45);
+			}
+			else {
+				setVirtualCarSpeed(1.0, 0.0);
+				myTimer.resetTimer();
+				index++;
+				prevmove = currentmove;
+				//printf("%d", (currentmove));
+				printf("%c", (directions[index]));
+			}
+		}
+		else {
+			setVirtualCarSpeed(1.0, 0.0);
+			myTimer.resetTimer();
+			index++;
+			prevmove = currentmove;
+			//printf("%d", (currentmove));
+			printf("%c", (directions[index]));
+		}
+	}
+
+	//if (myTimer.getTimer() > 1) {
+	//	if (directions[index] == "U") {
+	//		currentmove = 1;
+	//	}
+	//	if (directions[index] == "R") {
+	//		currentmove = 2;
+	//	}
+	//	if (directions[index] == "D") {
+	//		currentmove = 3;
+	//	}
+	//	if (directions[index] == "L") {
+	//		currentmove = 4;
+	//	}
+	//	if ((currentmove == prevmove + 1) || (currentmove == 4 && prevmove == 1)) {
+	//		turnright();
+	//			setVirtualCarSpeed(1.0, 0.0);
+	//			myTimer.resetTimer();
+	//	}
+	//	if ((currentmove == prevmove - 1) || (currentmove == 1 && prevmove == 4)) {
+	//		turnleft();
+	//			setVirtualCarSpeed(1.0, 0.0);
+	//			myTimer.resetTimer();
+	//	}
+	//	if ((currentmove == prevmove + 2) || (currentmove == 3 && prevmove == 1) || (currentmove == 4 && prevmove == 2)) {
+	//		turnright();
+	//			turnright();
+	//			setVirtualCarSpeed(1.0, 0.0);
+	//			myTimer.resetTimer();
+	//	}
+	//	else {
+	//		setVirtualCarSpeed(1.0, 0.0);
+	//		myTimer.resetTimer();
+	//	}
+	//	prevmove = currentmove;
+	//	index++;
+
+	//}
+
     //}------------------------------------
 
-	if (distanceTravelled == 10.0) {
-		setVirtualCarSpeed(0.0, 0.0);
-		cout << "Finished with time: " << (myTimer.getTimer()) << endl;
-	}
-	else {
-		setVirtualCarSpeed(0.5, 0.0);
-		distanceTravelled += 0.5;
-	}
+	//if (distanceTravelled == 10.0) {
+	//	setVirtualCarSpeed(0.0, 0.0);
+	//	cout << "Finished with time: " << (myTimer.getTimer()) << endl;
+	//}
+	//else {
+	//	setVirtualCarSpeed(0.5, 0.0);
+	//	distanceTravelled += 0.5;
+	//}
 
 	//if (myTimer.getTimer() > 3) {
 	//	setVirtualCarSpeed(0.5, 30.0);
@@ -210,6 +317,15 @@ int virtualCarUpdate()
 	//}---------------------------------------------------------------
 	
 	return 1;
+}
+void turnright() {
+	if (myTimer.getTimer() < 3) {
+		setVirtualCarSpeed(0.0, 45);
+	}
+}
+
+void turnleft() {
+		setVirtualCarSpeed(0.0, -45);
 }
 //}=============================================================
 
