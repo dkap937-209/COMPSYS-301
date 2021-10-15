@@ -47,10 +47,13 @@ int prevmove = 4;
 int index = 0;
 int movefinished = 0;
 
+int selectedLevel;
+
 void myMapRead(void);
 void turnleft();
 void turnright();
 void readFoodList(void);
+vector<string> getDirectionsFromFoodParticles(const array<array<int, COL>, ROW>& map, vector<Pair> foodList, Pair src);
 
 vector<int> virtualCarSensorStates;
 
@@ -102,7 +105,7 @@ int virtualCarInit()
 
 	printf("Printing location of food particles");
 	for (auto& food : foodList) {
-		printf("(%d, %d)\n", food.first, food.second);
+		printf("\n(%d, %d): %d", food.first, food.second, map[food.first][food.second]);
 	}
 	printf("\n");
 
@@ -114,21 +117,36 @@ int virtualCarInit()
 		}
 		cout << "\n";
 	}
-
 	//Source point (ROW, COL)
 	Pair src = make_pair(1, 1);
-
 	//Destination point (ROW, COL)
 	Pair dest = make_pair(3, 9);
 
 	//Calling A* algorithm
-	/*aStarSearch(map, src, dest);*/
 	directions = aStarSearch(map, src, dest);
-
-	//Printing out directions to get to destination
-	for (auto& direction : directions) {
-		printf("%s, ", direction.c_str());
+	if (selectedLevel == 1) {
+		
+		//Do something to visit all the cells
+		printf("Level one has been selected");
+	
 	}
+	//If level two is selected find the shortest path between each food pellet
+	else if (selectedLevel == 2) {
+		printf("\nLevel two has been selected\n");
+		directions = getDirectionsFromFoodParticles(map, foodList, src);
+
+		printf("\n Printing out the directions between food particles\n");
+		//Printing out directions to get to destination
+		for (auto& direction : directions) {
+			printf("%s, ", direction.c_str());
+		}
+	}
+
+	//printf("\n Printing out the directions\n");
+	////Printing out directions to get to destination
+	//for (auto& direction : directions) {
+	//	printf("\n%s, ", direction.c_str());
+	//}
 	currentCarPosFloor_X = cellToFloorX(src.first);
 	currentCarPosFloor_Y = cellToFloorY(src.second);
 
@@ -329,6 +347,9 @@ void turnleft() {
 }
 //}=============================================================
 
+/*
+* Reading map from txt file
+*/
 void myMapRead(void) {
 	int rowIndex = 0;
 	int columnIndex;
@@ -352,6 +373,10 @@ void myMapRead(void) {
 	}
 }
 
+
+/*
+* Readings co-ordinates of food particles from txt file
+*/
 void readFoodList(void) {
 	int rowIndex = 0;
 	int columnIndex;
@@ -385,10 +410,35 @@ void readFoodList(void) {
 			stringstream conv2IntCol(colPos);
 			conv2IntCol >> colVal;
 
-			foodList.emplace_back(make_pair(rowVal, colVal));
+			foodList.emplace_back(make_pair(colVal, rowVal));
 		}
 		file.close();
 	}
+}
+
+/*
+* Finds the shortest path between food particles
+*/
+vector<string> getDirectionsFromFoodParticles(const array<array<int, COL>, ROW>& map, vector<Pair> foodList, Pair src) {
+
+	vector<string>  directions, returnedDirections;
+
+	//Get directions from starting point to first food item
+	returnedDirections = aStarSearch(map, src, foodList[0]);
+	directions.insert(directions.end(), returnedDirections.begin(), returnedDirections.end());
+
+	//Getting directions from current food item to next food item
+	for (int i = 0; i < foodList.size() - 1; i++) {
+
+		Pair src = make_pair(foodList[i].first, foodList[i].second);
+		Pair dest = make_pair(foodList[i + 1].first, foodList[i + 1].second);
+
+		returnedDirections = aStarSearch(map, src, dest);
+
+		directions.insert(directions.end(), returnedDirections.begin(), returnedDirections.end());
+	}
+
+	return directions;
 }
 
 
@@ -396,6 +446,10 @@ void readFoodList(void) {
 
 int main(int argc, char** argv)
 {
+
+
+	selectedLevel = 2; 
+
 	FungGlAppMainFuction(argc, argv);
 
 	return 0;
