@@ -35,14 +35,16 @@ int sensorPopulationAlgorithmID;
 float sensorSeparation;
 float num_sensors;
 extern int maxDarkDefValueTH;
-int map[ROW][COL];
+//int map[ROW][COL];
+array<array<int, COL>, ROW> map = { {} };
 
 //For storing directions robot needs to travel 
 //to get to the destination
 vector<string> directions;
-
+vector<Pair> foodList;
 
 void myMapRead(void);
+void readFoodList(void);
 
 vector<int> virtualCarSensorStates;
 
@@ -90,7 +92,15 @@ int virtualCarInit()
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	myMapRead();
+	readFoodList();
 
+	printf("Printing location of food particles");
+	for (auto& food : foodList) {
+		printf("(%d, %d)\n", food.first, food.second);
+	}
+	printf("\n");
+
+	printf("Printing map from init\n");
 	//Printing the map
 	for (int i = 0; i < ROW; i++) {
 		for (int j = 0; j < COL; j++) {
@@ -100,12 +110,13 @@ int virtualCarInit()
 	}
 
 	//Source point (ROW, COL)
-	Pair src = make_pair(0, 0);
+	Pair src = make_pair(1, 1);
 
 	//Destination point (ROW, COL)
-	Pair dest = make_pair(0, 0);
+	Pair dest = make_pair(3, 9);
 
 	//Calling A* algorithm
+	/*aStarSearch(map, src, dest);*/
 	directions = aStarSearch(map, src, dest);
 
 	//Printing out directions to get to destination
@@ -221,6 +232,20 @@ void myMapRead(void) {
 			rowIndex++;
 		}
 		printf("\n");
+		file.close();
+	}
+}
+
+void readFoodList(void) {
+	int rowIndex = 0;
+	int columnIndex;
+	printf("\n");
+	std::ifstream file("foodList/foodList.txt");
+	if (file.is_open()) {
+		std::string line;
+		while (std::getline(file, line)) {
+			foodList.emplace_back(make_pair(line[0], line[1]));
+		}
 		file.close();
 	}
 }

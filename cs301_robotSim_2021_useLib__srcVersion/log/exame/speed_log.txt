@@ -1,4 +1,7 @@
-2021-10-15-13-2-31 : Speed_Floor = 416.749 mm/sec 
-2021-10-15-13-2-32 : Speed_Floor = 88.588 mm/sec 
-2021-10-15-13-2-32 : Speed_Floor = 87.118 mm/sec 
-2021-10-15-13-2-33 : Speed_Floor = 87.4234 mm/sec 
+2021-10-15-14-39-8 : Speed_Floor = 405.602 mm/sec 
+2021-10-15-14-39-8 : Speed_Floor = 88.2906 mm/sec 
+2021-10-15-14-39-9 : Speed_Floor = 87.3511 mm/sec 
+2021-10-15-14-39-9 : Speed_Floor = 87.2996 mm/sec 
+2021-10-15-14-39-10 : Speed_Floor = 87.1162 mm/sec 
+2021-10-15-14-39-10 : Speed_Floor = 0 mm/sec 
+2021-10-15-14-39-11 : Speed_Floor = 0 mm/sec 

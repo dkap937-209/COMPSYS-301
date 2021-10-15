@@ -28,6 +28,6 @@ typedef tuple<double, int, int> Tuple;
 typedef pair<double, pair<int, int> > pPair;
 
 
-vector<string> aStarSearch(int grid[][COL], Pair src, Pair dest);
-
+//vector<string> aStarSearch(int grid[][COL], Pair src, Pair dest);
+vector<string> aStarSearch(const array<array<int, COL>, ROW>& grid,const Pair& src, const Pair& dest);
 #endif //ASTAR_A_STAR_HEADER_H
