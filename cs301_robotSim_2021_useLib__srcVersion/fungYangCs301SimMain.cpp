@@ -46,6 +46,9 @@ vector<Pair> foodList;
 void myMapRead(void);
 void readFoodList(void);
 
+// Global variable to ensure the robot spins.
+int rotationLock = 1;
+
 vector<int> virtualCarSensorStates;
 
 vector<ghostInfoPack> ghostInfoPackList;
@@ -94,20 +97,11 @@ int virtualCarInit()
 	myMapRead();
 	readFoodList();
 
-	printf("Printing location of food particles");
+	printf("Printing location of food particles\n");
 	for (auto& food : foodList) {
 		printf("(%d, %d)\n", food.first, food.second);
 	}
 	printf("\n");
-
-	printf("Printing map from init\n");
-	//Printing the map
-	for (int i = 0; i < ROW; i++) {
-		for (int j = 0; j < COL; j++) {
-			cout << map[i][j];
-		}
-		cout << "\n";
-	}
 
 	//Source point (ROW, COL)
 	Pair src = make_pair(1, 1);
@@ -125,6 +119,9 @@ int virtualCarInit()
 	}
 
 
+	currentCarPosFloor_X = cellToFloorX(src.first);
+	currentCarPosFloor_Y = cellToFloorX(src.second);
+
 	virtualCarLinearSpeed_seed = virtualCarLinearSpeedFloor * floorToCoordScaleFactor;//coord
 
 	currentCarPosCoord_X = floorToCoordX(currentCarPosFloor_X);
@@ -137,6 +134,7 @@ int virtualCarInit()
 //Main function to update
 int virtualCarUpdate()
 {
+
 	//{----------------------------------
 	//process sensor state information
 	float halfTiltRange = (num_sensors - 1.0) / 2.0;
@@ -153,26 +151,25 @@ int virtualCarUpdate()
 	}
     //}------------------------------------
 
-	if (distanceTravelled == 10.0) {
-		setVirtualCarSpeed(0.0, 0.0);
-		cout << "Finished with time: " << (myTimer.getTimer()) << endl;
-	}
-	else {
-		setVirtualCarSpeed(0.5, 0.0);
-		distanceTravelled += 0.5;
+	if (rotationLock == 1) {
+		if (virtualCarSensorStates[3] == 1) {
+			rotationLock = 0;
+			setVirtualCarSpeed(0.5, 0.0);
+		}
+		else {
+		setVirtualCarSpeed(0.0, 15.0);
+		}
 	}
 
-	//if (myTimer.getTimer() > 3) {
-	//	setVirtualCarSpeed(0.5, 30.0);
-	//	cout << "=turning=" << endl;
-	//} else { 
-	//	setVirtualCarSpeed(0.5, 0.0);
-	//	cout << "=straight=" << endl;
-	//}
-	//	
-	//if (myTimer.getTimer() > 5) {
-	//	myTimer.resetTimer();
-	//} 
+
+	if (virtualCarSensorStates[2] == 1) {
+		setVirtualCarSpeed(0.0, 45.0);
+	}
+
+
+
+
+
 
 	//{------------------------------------
 	//updat linear and rotational speed based on sensor information
@@ -216,7 +213,6 @@ int virtualCarUpdate()
 void myMapRead(void) {
 	int rowIndex = 0;
 	int columnIndex;
-	printf("\n");
 	std::ifstream file("map/map.txt");
 	if (file.is_open()) {
 		std::string line;
@@ -231,7 +227,6 @@ void myMapRead(void) {
 			}
 			rowIndex++;
 		}
-		printf("\n");
 		file.close();
 	}
 }
@@ -239,7 +234,6 @@ void myMapRead(void) {
 void readFoodList(void) {
 	int rowIndex = 0;
 	int columnIndex;
-	printf("\n");
 	std::ifstream file("foodList/foodList.txt");
 	if (file.is_open()) {
 		std::string line;
@@ -254,6 +248,5 @@ void readFoodList(void) {
 int main(int argc, char** argv)
 {
 	FungGlAppMainFuction(argc, argv);
-
 	return 0;
 }
