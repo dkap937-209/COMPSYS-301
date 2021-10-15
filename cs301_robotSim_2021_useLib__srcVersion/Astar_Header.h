@@ -4,8 +4,8 @@ using namespace std;
 #ifndef ASTAR_A_STAR_HEADER_H
 #define ASTAR_A_STAR_HEADER_H
 
-#define ROW 15
-#define COL 19
+constexpr auto ROW = 15;
+constexpr auto COL = 19;
 #include <vector>
 #include <string>
 #include <queue>
@@ -27,5 +27,7 @@ typedef pair<int, int> Pair;
 typedef tuple<double, int, int> Tuple;
 typedef pair<double, pair<int, int> > pPair;
 
-vector<string> aStarSearch(const array<array<int, COL>, ROW>& grid, const Pair& src, const Pair& dest);
+
+vector<string> aStarSearch(int grid[][COL], Pair src, Pair dest);
+
 #endif //ASTAR_A_STAR_HEADER_H

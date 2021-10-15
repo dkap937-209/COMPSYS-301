@@ -1,92 +1,87 @@
 #define FLT_MAX 999999
-#include "Astar_Header.h"
+#include "Astar_header.h"
 using namespace std;
+
+#define ROW 9
+#define COL 10
 
 // Creating a shortcut for int, int pair type
 typedef pair<int, int> Pair;
-// Creating a shortcut for tuple<int, int, int> type
-typedef tuple<double, int, int> Tuple;
+
+// Creating a shortcut for pair<int, pair<int, int>> type
+typedef pair<double, pair<int, int> > pPair;
 
 // A structure to hold the necessary parameters
 struct cell {
     // Row and Column index of its parent
-    Pair parent;
+    // Note that 0 <= i <= ROW-1 & 0 <= j <= COL-1
+    int parent_i, parent_j;
     // f = g + h
     double f, g, h;
-    cell()
-        : parent(-1, -1)
-        , f(-1)
-        , g(-1)
-        , h(-1)
-    {
-    }
 };
 
 // A Utility Function to check whether given cell (row, col)
 // is a valid cell or not.
-//template <size_t ROW, size_t COL>
-bool isValid(const array<array<int, COL>, ROW>& grid, const Pair& point)
-{ // Returns true if row number and column number is in
-// rang
-    if (ROW > 0 && COL > 0)
-        return (point.first >= 0) && (point.first < ROW)
-        && (point.second >= 0)
-        && (point.second < COL);
-
-    return false;
+bool isValid(int row, int col)
+{
+    // Returns true if row number and column number
+    // is in range
+    return (row >= 0) && (row < ROW) && (col >= 0)
+        && (col < COL);
 }
 
 // A Utility Function to check whether the given cell is
 // blocked or not
-//template <size_t ROW, size_t COL>
-bool isUnBlocked(const array<array<int, COL>, ROW>& grid,
-    const Pair& point)
+bool isUnBlocked(int grid[][COL], int row, int col)
 {
-    if (grid[point.first][point.second] == 0)
-        return true;
-    return false;
+    // Returns true if the cell is not blocked else false
+    if (grid[row][col] == 0)
+        return (true);
+    else
+        return (false);
 }
 
 // A Utility Function to check whether destination cell has
 // been reached or not
-bool isDestination(const Pair& position, const Pair& dest) {
-    return position == dest;
+bool isDestination(int row, int col, Pair dest)
+{
+    if (row == dest.first && col == dest.second)
+        return (true);
+    else
+        return (false);
 }
 
 // A Utility Function to calculate the 'h' heuristics.
-double calculateHValue(const Pair& src, const Pair& dest)
+double calculateHValue(int row, int col, Pair dest)
 {
-    // h is estimated with the two points distance formula
-    return sqrt(pow((src.first - dest.first), 2.0)
-        + pow((src.second - dest.second), 2.0));
+    // Return using the distance formula
+    return ((double)sqrt(
+        (row - dest.first) * (row - dest.first)
+        + (col - dest.second) * (col - dest.second)));
 }
 
-// A Utility Function to trace the path from the source to
-// destination
-
-vector<string> tracePath(
-    const array<array<cell, COL>, ROW>& cellDetails,
-    const Pair& dest)
+// A Utility Function to trace the path from the source
+// to destination
+vector<string> tracePath(cell cellDetails[][COL], Pair dest)
 {
     printf("\nThe Path is ");
-
-    stack<Pair> Path;
-    stack<Pair> dupPath;
-    Pair currentPair, nextPair;
-
     int row = dest.first;
     int col = dest.second;
+    Pair currentPair, nextPair;
 
-    while (!(cellDetails[row][col].parent.first == row
-        && cellDetails[row][col].parent.second == col)) {
+    stack<Pair> dupPath;
+    stack<Pair> Path;
+    vector<string> directions;
+
+    while (!(cellDetails[row][col].parent_i == row
+        && cellDetails[row][col].parent_j == col)) {
         Path.push(make_pair(row, col));
-        int temp_row = cellDetails[row][col].parent.first;
-        int temp_col = cellDetails[row][col].parent.second;
+        int temp_row = cellDetails[row][col].parent_i;
+        int temp_col = cellDetails[row][col].parent_j;
         row = temp_row;
         col = temp_col;
     }
-    Path.push(make_pair(row, col));
-    vector<string> directions;
+
 
     dupPath = Path;
 
@@ -111,11 +106,8 @@ vector<string> tracePath(
         currentPair = nextPair;
         nextPair = dupPath.top();
     }
-    //    for(auto & direction : directions){
-    //        printf("%s, ", direction.c_str());
-    //    }
 
-
+    Path.push(make_pair(row, col));
     while (!Path.empty()) {
         pair<int, int> p = Path.top();
         Path.pop();
@@ -125,37 +117,34 @@ vector<string> tracePath(
     return directions;
 }
 
-vector<string> aStarSearch(const array<array<int, COL>, ROW>& grid,
-    const Pair& src, const Pair& dest)
+// A Function to find the shortest path between
+// a given source cell to a destination cell according
+// to A* Search Algorithm
+vector<string> aStarSearch(int grid[][COL], Pair src, Pair dest)
 {
-    vector<string> emptyVector;
     // If the source is out of range
-    if (!isValid(grid, src)) {
+    if (!isValid(src.first, src.second)) {
         printf("Source is invalid\n");
-        return emptyVector;
+        return {};
     }
 
     // If the destination is out of range
-    if (!isValid(grid, dest)) {
+    if (!isValid(dest.first, dest.second)) {
         printf("Destination is invalid\n");
-        return emptyVector;
+        return {};
     }
 
     // Either the source or the destination is blocked
-    if (!isUnBlocked(grid, src)) {
-        printf("Source is blocked\n");
-        return emptyVector;
-    }
-
-    if (!isUnBlocked(grid, dest)) {
-        printf("destination is blocked\n");
-        return emptyVector;
+    if (!isUnBlocked(grid, src.first, src.second)
+        || !isUnBlocked(grid, dest.first, dest.second)) {
+        printf("Source or the destination is blocked\n");
+        return{};
     }
 
     // If the destination cell is the same as source cell
-    if (isDestination(src, dest)) {
+    if (isDestination(src.first, src.second, dest)) {
         printf("We are already at the destination\n");
-        return emptyVector;
+        return {};
     }
 
     // Create a closed list and initialise it to false which
@@ -166,7 +155,8 @@ vector<string> aStarSearch(const array<array<int, COL>, ROW>& grid,
 
     // Declare a 2D array of structure to hold the details
     // of that cell
-    array<array<cell, COL>, ROW> cellDetails;
+    cell cellDetails[ROW][COL];
+
     int i, j;
 
     for (i = 0; i < ROW; i++) {
@@ -174,7 +164,8 @@ vector<string> aStarSearch(const array<array<int, COL>, ROW>& grid,
             cellDetails[i][j].f = FLT_MAX;
             cellDetails[i][j].g = FLT_MAX;
             cellDetails[i][j].h = FLT_MAX;
-            cellDetails[i][j].parent = { -1, -1 };
+            cellDetails[i][j].parent_i = -1;
+            cellDetails[i][j].parent_j = -1;
         }
     }
 
@@ -183,8 +174,9 @@ vector<string> aStarSearch(const array<array<int, COL>, ROW>& grid,
     cellDetails[i][j].f = 0.0;
     cellDetails[i][j].g = 0.0;
     cellDetails[i][j].h = 0.0;
-    cellDetails[i][j].parent = { i, j };
-    typedef pair<double, pair<int, int> > pPair;
+    cellDetails[i][j].parent_i = i;
+    cellDetails[i][j].parent_j = j;
+
     /*
      Create an open list having information as-
      <f, <i, j>>
@@ -199,10 +191,6 @@ vector<string> aStarSearch(const array<array<int, COL>, ROW>& grid,
     // 'f' as 0
     openList.insert(make_pair(0.0, make_pair(i, j)));
 
-    // We set this boolean value as false as initially
-    // the destination is not reached.
-    bool foundDest = false;
-
     while (!openList.empty()) {
         pPair p = *openList.begin();
 
@@ -214,31 +202,36 @@ vector<string> aStarSearch(const array<array<int, COL>, ROW>& grid,
         j = p.second.second;
         closedList[i][j] = true;
 
-        // To store the 'g', 'h' and 'f' of the 8 successors
+        /*
+         Cell-->Popped Cell (i, j)
+         N -->  North       (i-1, j)
+         S -->  South       (i+1, j)
+         E -->  East        (i, j+1)
+         W -->  West           (i, j-1)*/
+
+         // To store the 'g', 'h' and 'f' of the 8 successors
         double gNew, hNew, fNew;
 
         //----------- 1st Successor (North) ------------
 
-        Pair position(i - 1, j);
         // Only process this cell if this is a valid one
-        if (isValid(grid, position)) {
+        if (isValid(i - 1, j)) {
             // If the destination cell is the same as the
             // current successor
-            if (isDestination(position, dest)) {
+            if (isDestination(i - 1, j, dest)) {
                 // Set the Parent of the destination cell
-                cellDetails[i - 1][j].parent.first = i;
-                cellDetails[i - 1][j].parent.second = j;
+                cellDetails[i - 1][j].parent_i = i;
+                cellDetails[i - 1][j].parent_j = j;
                 printf("The destination cell is found\n");
-                foundDest = true;
                 return tracePath(cellDetails, dest);
             }
             // If the successor is already on the closed
             // list or if it is blocked, then ignore it.
             // Else do the following
             else if (!closedList[i - 1][j]
-                && isUnBlocked(grid, position)) {
+                && isUnBlocked(grid, i - 1, j)) {
                 gNew = cellDetails[i][j].g + 1.0;
-                hNew = calculateHValue(position, dest);
+                hNew = calculateHValue(i - 1, j, dest);
                 fNew = gNew + hNew;
 
                 // If it isn’t on the open list, add it to
@@ -258,36 +251,32 @@ vector<string> aStarSearch(const array<array<int, COL>, ROW>& grid,
                     cellDetails[i - 1][j].f = fNew;
                     cellDetails[i - 1][j].g = gNew;
                     cellDetails[i - 1][j].h = hNew;
-                    cellDetails[i - 1][j].parent.first = i;
-                    cellDetails[i - 1][j].parent.second = j;
+                    cellDetails[i - 1][j].parent_i = i;
+                    cellDetails[i - 1][j].parent_j = j;
                 }
             }
         }
 
         //----------- 2nd Successor (South) ------------
 
-        Pair positionSouth(i + 1, j);
         // Only process this cell if this is a valid one
-        if (isValid(grid, positionSouth)) {
+        if (isValid(i + 1, j)) {
             // If the destination cell is the same as the
             // current successor
-            if (isDestination(positionSouth, dest)) {
+            if (isDestination(i + 1, j, dest)) {
                 // Set the Parent of the destination cell
-                cellDetails[i + 1][j].parent.first = i;
-                cellDetails[i + 1][j].parent.second = j;
+                cellDetails[i + 1][j].parent_i = i;
+                cellDetails[i + 1][j].parent_j = j;
                 printf("The destination cell is found\n");
-                printf("Destination is (%d, %d)\n", dest.first, dest.second);
-                printf("I and J, (%d, %d)\n", i, j);
-                foundDest = true;
                 return tracePath(cellDetails, dest);
             }
             // If the successor is already on the closed
             // list or if it is blocked, then ignore it.
             // Else do the following
             else if (!closedList[i + 1][j]
-                && isUnBlocked(grid, positionSouth)) {
+                && isUnBlocked(grid, i + 1, j)) {
                 gNew = cellDetails[i][j].g + 1.0;
-                hNew = calculateHValue(positionSouth, dest);
+                hNew = calculateHValue(i + 1, j, dest);
                 fNew = gNew + hNew;
 
                 // If it isn’t on the open list, add it to
@@ -306,25 +295,23 @@ vector<string> aStarSearch(const array<array<int, COL>, ROW>& grid,
                     cellDetails[i + 1][j].f = fNew;
                     cellDetails[i + 1][j].g = gNew;
                     cellDetails[i + 1][j].h = hNew;
-                    cellDetails[i + 1][j].parent.first = i;
-                    cellDetails[i + 1][j].parent.second = j;
+                    cellDetails[i + 1][j].parent_i = i;
+                    cellDetails[i + 1][j].parent_j = j;
                 }
             }
         }
 
         //----------- 3rd Successor (East) ------------
 
-        Pair positionEast(i, j + 1);
         // Only process this cell if this is a valid one
-        if (isValid(grid, positionEast)) {
+        if (isValid(i, j + 1)) {
             // If the destination cell is the same as the
             // current successor
-            if (isDestination(positionEast, dest)) {
+            if (isDestination(i, j + 1, dest)) {
                 // Set the Parent of the destination cell
-                cellDetails[i][j + 1].parent.first = i;
-                cellDetails[i][j + 1].parent.second = j;
+                cellDetails[i][j + 1].parent_i = i;
+                cellDetails[i][j + 1].parent_j = j;
                 printf("The destination cell is found\n");
-                foundDest = true;
                 return tracePath(cellDetails, dest);
             }
 
@@ -332,9 +319,9 @@ vector<string> aStarSearch(const array<array<int, COL>, ROW>& grid,
             // list or if it is blocked, then ignore it.
             // Else do the following
             else if (!closedList[i][j + 1]
-                && isUnBlocked(grid, positionEast)) {
+                && isUnBlocked(grid, i, j + 1)) {
                 gNew = cellDetails[i][j].g + 1.0;
-                hNew = calculateHValue(positionEast, dest);
+                hNew = calculateHValue(i, j + 1, dest);
                 fNew = gNew + hNew;
 
                 // If it isn’t on the open list, add it to
@@ -354,25 +341,23 @@ vector<string> aStarSearch(const array<array<int, COL>, ROW>& grid,
                     cellDetails[i][j + 1].f = fNew;
                     cellDetails[i][j + 1].g = gNew;
                     cellDetails[i][j + 1].h = hNew;
-                    cellDetails[i][j + 1].parent.first = i;
-                    cellDetails[i][j + 1].parent.second = j;
+                    cellDetails[i][j + 1].parent_i = i;
+                    cellDetails[i][j + 1].parent_j = j;
                 }
             }
         }
 
         //----------- 4th Successor (West) ------------
 
-        Pair positionWest(i, j - 1);
         // Only process this cell if this is a valid one
-        if (isValid(grid, positionWest)) {
+        if (isValid(i, j - 1)) {
             // If the destination cell is the same as the
             // current successor
-            if (isDestination(positionWest, dest)) {
+            if (isDestination(i, j - 1, dest)) {
                 // Set the Parent of the destination cell
-                cellDetails[i][j - 1].parent.first = i;
-                cellDetails[i][j - 1].parent.second = j;
+                cellDetails[i][j - 1].parent_i = i;
+                cellDetails[i][j - 1].parent_j = j;
                 printf("The destination cell is found\n");
-                foundDest = true;
                 return tracePath(cellDetails, dest);
             }
 
@@ -380,9 +365,9 @@ vector<string> aStarSearch(const array<array<int, COL>, ROW>& grid,
             // list or if it is blocked, then ignore it.
             // Else do the following
             else if (!closedList[i][j - 1]
-                && isUnBlocked(grid, positionWest)) {
+                && isUnBlocked(grid, i, j - 1)) {
                 gNew = cellDetails[i][j].g + 1.0;
-                hNew = calculateHValue(positionWest, dest);
+                hNew = calculateHValue(i, j - 1, dest);
                 fNew = gNew + hNew;
 
                 // If it isn’t on the open list, add it to
@@ -402,8 +387,8 @@ vector<string> aStarSearch(const array<array<int, COL>, ROW>& grid,
                     cellDetails[i][j - 1].f = fNew;
                     cellDetails[i][j - 1].g = gNew;
                     cellDetails[i][j - 1].h = hNew;
-                    cellDetails[i][j - 1].parent.first = i;
-                    cellDetails[i][j - 1].parent.second = j;
+                    cellDetails[i][j - 1].parent_i = i;
+                    cellDetails[i][j - 1].parent_j = j;
                 }
             }
         }
@@ -415,7 +400,8 @@ vector<string> aStarSearch(const array<array<int, COL>, ROW>& grid,
     // there is no way to destination cell (due to
     // blockages)
     printf("Failed to find the Destination Cell\n");
-    return emptyVector;
+
+    return {};
 }
 
 

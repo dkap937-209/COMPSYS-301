@@ -1,23 +1,24 @@
-﻿  AStar_HelperFunctions.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\float.h(91,1): warning C4005: 'FLT_MAX': macro redefinition
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\AStar_HelperFunctions.cpp(1): message : see previous definition of 'FLT_MAX'
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\AStar_HelperFunctions.cpp(96,23): warning C4018: '<': signed/unsigned mismatch
-  fungYangCs301SimMain.cpp
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(72,24): warning C4305: '=': truncation from 'double' to 'float'
+﻿  fungYangCs301SimMain.cpp
+C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(39,33): error C2530: 'map': references must be initialized
+C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(74,24): warning C4305: '=': truncation from 'double' to 'float'
 C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(112,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(194,38): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
-  Generating code
-  Finished generating code
-cs301_robotSim_lib_2021.lib(mainFungGLAppEngin.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(mainFungGLAppEngin.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(gameManager.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(gameManager.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(highPerformanceTimer.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(highPerformanceTimer.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(Geometry.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(Geometry.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(AStarManager.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(AStarManager.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(texture.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(texture.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(Lighting.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(Lighting.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(my_GL_Draw_Funcs.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(my_GL_Draw_Funcs.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(mazeGen.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(mazeGen.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(Utilities.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(Utilities.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(PathFinder.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(PathFinder.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-  cs301_robotSim_2021_useLib.vcxproj -> C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_2021_useLib.exe
+  Compiling...
+  AStar_HelperFunctions.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\float.h(91,1): warning C4005: 'FLT_MAX': macro redefinition
+C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\AStar_HelperFunctions.cpp(1): message : see previous definition of 'FLT_MAX'
+C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\AStar_HelperFunctions.cpp(96,23): warning C4018: '<': signed/unsigned mismatch
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xlocnum(622,1): fatal error C1088: Cannot flush compiler intermediate file: 'C:\Users\darpa\AppData\Local\Temp\_CL_33e30425ex': No space left on device
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xlocnum(597): message : while compiling class template member function '_InIt std::num_get<char,_InIt>::do_get(_InIt,_InIt,std::ios_base &,std::ios_base::iostate &,double &) const'
+          with
+          [
+              _InIt=std::istreambuf_iterator<char,std::char_traits<char>>
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xlocnum(629): message : see reference to function template instantiation '_InIt std::num_get<char,_InIt>::do_get(_InIt,_InIt,std::ios_base &,std::ios_base::iostate &,double &) const' being compiled
+          with
+          [
+              _InIt=std::istreambuf_iterator<char,std::char_traits<char>>
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xlocnum(1622): message : see reference to class template instantiation 'std::num_get<char,std::istreambuf_iterator<char,std::char_traits<char>>>' being compiled
+  Generating Code...

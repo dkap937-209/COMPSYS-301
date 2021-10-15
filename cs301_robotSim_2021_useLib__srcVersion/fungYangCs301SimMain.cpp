@@ -36,6 +36,12 @@ float sensorSeparation;
 float num_sensors;
 extern int maxDarkDefValueTH;
 int map[ROW][COL];
+
+//For storing directions robot needs to travel 
+//to get to the destination
+vector<string> directions;
+
+
 void myMapRead(void);
 
 vector<int> virtualCarSensorStates;
@@ -84,6 +90,29 @@ int virtualCarInit()
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	myMapRead();
+
+	//Printing the map
+	for (int i = 0; i < ROW; i++) {
+		for (int j = 0; j < COL; j++) {
+			cout << map[i][j];
+		}
+		cout << "\n";
+	}
+
+	//Source point (ROW, COL)
+	Pair src = make_pair(0, 0);
+
+	//Destination point (ROW, COL)
+	Pair dest = make_pair(0, 0);
+
+	//Calling A* algorithm
+	directions = aStarSearch(map, src, dest);
+
+	//Printing out directions to get to destination
+	for (auto& direction : directions) {
+		printf("%s, ", direction.c_str());
+	}
+
 
 	virtualCarLinearSpeed_seed = virtualCarLinearSpeedFloor * floorToCoordScaleFactor;//coord
 
