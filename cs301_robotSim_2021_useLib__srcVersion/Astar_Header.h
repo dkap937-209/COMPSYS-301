@@ -4,8 +4,8 @@ using namespace std;
 #ifndef ASTAR_A_STAR_HEADER_H
 #define ASTAR_A_STAR_HEADER_H
 
-#define ROW 9
-#define COL 10
+#define ROW 15
+#define COL 19
 #include <vector>
 #include <string>
 #include <queue>

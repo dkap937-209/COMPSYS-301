@@ -35,7 +35,7 @@ int sensorPopulationAlgorithmID;
 float sensorSeparation;
 float num_sensors;
 extern int maxDarkDefValueTH;
-int map[15][19];
+int map[ROW][COL];
 void myMapRead(void);
 
 vector<int> virtualCarSensorStates;
@@ -83,7 +83,7 @@ int virtualCarInit()
 	//maxDarkDefValueTH = 20;
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-	
+	myMapRead();
 
 	virtualCarLinearSpeed_seed = virtualCarLinearSpeedFloor * floorToCoordScaleFactor;//coord
 
