@@ -43,9 +43,14 @@ array<array<int, COL>, ROW> map = { {} };
 vector<string> directions;
 vector<Pair> foodList;
 int currentmove;
-int prevmove = 4;
+int prevmove = 3;
 int index = 0;
 int movefinished = 0;
+int targetTime = 0;
+int turningLock = 0;
+int futuremove;
+int SensorOI = 0;
+init = 0;
 
 int selectedLevel;
 
@@ -96,7 +101,7 @@ int virtualCarInit()
 	//currentCarPosFloor_X = 2000;//mm
 	//currentCarPosFloor_Y = 1000;//mm
 	//virtualCarAngularSpeed_seed = 40;//degree
-	//currentCarAngle = 90;//degree
+	currentCarAngle = 270;//degree
 	//maxDarkDefValueTH = 20;
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -162,79 +167,92 @@ int virtualCarInit()
 //Main function to update
 int virtualCarUpdate()
 {
-	//{----------------------------------
-	//process sensor state information
-	float halfTiltRange = (num_sensors - 1.0) / 2.0;
-	float tiltSum = 0.0;
-	float blackSensorCount = 0.0;
-	for (int i = 0; i < num_sensors; i++)
-	{
-		if (virtualCarSensorStates[i] == 0)
-		{
-			float tilt = (float)i - halfTiltRange;
-			tiltSum += tilt;
-			blackSensorCount += 1.0;
-		}
+	if (myTimer.getTimer() < 1 && init == 0) {
+		setVirtualCarSpeed(0.0, 0.0);
 	}
-	if (myTimer.getTimer() > 1) {
-		if (directions[index] == "U") {
-			currentmove = 1;
-		}
-		if (directions[index] == "R") {
-			currentmove = 2;
-		}
-		if (directions[index] == "D") {
-			currentmove = 3;
-		}
-		if (directions[index] == "L") {
-			currentmove = 4;
-		}
-		if ((currentmove == prevmove + 1) || (currentmove == 4 && prevmove == 1)) {
-			if (myTimer.getTimer() < 3) {
-				setVirtualCarSpeed(0.0, -45);
-			}
-			else {
-				setVirtualCarSpeed(1.0, 0.0);
-				myTimer.resetTimer();
-				index++;
-				prevmove = currentmove;
-				//printf("%d", (currentmove));
-				printf("%c", (directions[index]));
-			}
-		}
-		else if ((currentmove == prevmove + 2) || (currentmove == 3 && prevmove == 1) || (currentmove == 4 && prevmove == 2)) {
-			if (myTimer.getTimer() < 5) {
-				setVirtualCarSpeed(0.0, 45);
-			}
-			else {
-				setVirtualCarSpeed(1.0, 0.0);
-				myTimer.resetTimer();
-				index++;
-				prevmove = currentmove;
-				//printf("%d", (currentmove));
-				printf("%c", (directions[index]));
-			}
-		}
-		else if ((currentmove == prevmove - 1) || (currentmove == 1 && prevmove == 4)) {
-			if (myTimer.getTimer() < 3) {
-				setVirtualCarSpeed(0.0, 45);
-			}
-			else {
-				setVirtualCarSpeed(1.0, 0.0);
-				myTimer.resetTimer();
-				index++;
-				prevmove = currentmove;
-				//printf("%d", (currentmove));
-				printf("%c", (directions[index]));
-			}
+	else {
+		init = 1;
+	}
+	if (virtualCarSensorStates[SensorOI] == 0 || SensorOI == 0) {
+		if (targetTime - 0.4 > (myTimer.getTimer())) {
+			;
 		}
 		else {
-			setVirtualCarSpeed(1.0, 0.0);
-			myTimer.resetTimer();
-			index++;
-			prevmove = currentmove;
-			//printf("%d", (currentmove));
-			printf("%c", (directions[index]));
+			targetTime = 0;
+			SensorOI = 0;
+			if (directions[index] == "U") {
+				currentmove = 1;
+			}
+			if (directions[index] == "R") {
+				currentmove = 2;
+			}
+			if (directions[index] == "D") {
+				currentmove = 3;
+			}
+			if (directions[index] == "L") {
+				currentmove = 4;
+			}
+			//     1
+			//   4   2
+			//     3
+			if ((currentmove == prevmove + 1) || (currentmove == 4 && prevmove == 1)) {      //if turning right
+				if (myTimer.getTimer() < 3) {           //turn clockwise for 2 seconds
+					setVirtualCarSpeed(0.0, -45);
+					turningLock = 1;
+				}
+				else {
+					turningLock = 0;
+				}
+			}
+			else if ((currentmove == prevmove + 2) || (currentmove == 3 && prevmove == 1) || (currentmove == 4 && prevmove == 2)) {
+				if (myTimer.getTimer() < 5) {
+					setVirtualCarSpeed(0.0, 45);
+					turningLock = 1;
+				}
+				else {
+					turningLock = 0;
+				}
+			}
+
+			else if ((currentmove == prevmove - 1) || (currentmove == 1 && prevmove == 4)) {
+				if (myTimer.getTimer() < 3) {
+					setVirtualCarSpeed(0.0, 45);
+					turningLock = 1;
+				}
+				else {
+					turningLock = 0;
+				}
+			}
+			if (turningLock == 0) {
+				while (directions[index + 1] == directions[index]) {
+					index++;
+					targetTime += 1;
+				}
+				setVirtualCarSpeed(0.75, 0.0);      //set car to move forward and increment values
+				myTimer.resetTimer();
+				index++;
+				prevmove = currentmove;
+				if (directions[index] == "U") {
+					futuremove = 1;
+				}
+				if (directions[index] == "R") {
+					futuremove = 2;
+				}
+				if (directions[index] == "D") {
+					futuremove = 3;
+				}
+				if (directions[index] == "L") {
+					futuremove = 4;
+				}
+				if ((futuremove == currentmove + 1) || (futuremove == 4 && currentmove == 1)) {
+					SensorOI = 5;
+				}
+				else if ((futuremove == currentmove + 2) || (futuremove == 3 && currentmove == 1) || (futuremove == 4 && currentmove == 2)) {
+					SensorOI = 4;
+				}
+				//printf("%d", (currentmove));
+				printf("%c", (directions[index]));
+			}
 		}
 	}
 
