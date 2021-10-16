@@ -1,1 +1,40 @@
-﻿  cs301_robotSim_2021_useLib.vcxproj -> C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_2021_useLib.exe
+﻿  fungYangCs301SimMain.cpp
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(95,24): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(157,41): warning C4244: 'argument': conversion from '_Ty1' to 'float', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(157,37): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(158,41): warning C4244: 'argument': conversion from '_Ty2' to 'float', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(158,37): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(202,12): warning C4477: 'printf' : format string '%c' requires an argument of type 'int', but variadic argument 1 has type '_Ty'
+          with
+          [
+              _Ty=std::string
+          ]
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(263,39): warning C4474: 'printf' : too many arguments passed for format string
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(263,39): message : placeholders and their parameters expect 0 variadic arguments, but 1 were provided
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(267,32): warning C4474: 'printf' : too many arguments passed for format string
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(267,32): message : placeholders and their parameters expect 0 variadic arguments, but 1 were provided
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(324,38): warning C4018: '<': signed/unsigned mismatch
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(345,6): warning C4101: 'columnIndex': unreferenced local variable
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(394,20): warning C4018: '<': signed/unsigned mismatch
+  Generating code
+  Finished generating code
+cs301_robotSim_lib_2021.lib(mainFungGLAppEngin.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(mainFungGLAppEngin.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(gameManager.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(gameManager.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(highPerformanceTimer.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(highPerformanceTimer.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(Geometry.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(Geometry.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(AStarManager.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(AStarManager.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(texture.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(texture.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(Lighting.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(Lighting.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(my_GL_Draw_Funcs.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(my_GL_Draw_Funcs.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(mazeGen.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(mazeGen.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(Utilities.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(Utilities.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(PathFinder.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(PathFinder.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+  cs301_robotSim_2021_useLib.vcxproj -> C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_2021_useLib.exe
