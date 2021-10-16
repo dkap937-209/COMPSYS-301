@@ -13,8 +13,8 @@
 [user_defined_robot_state_update_time_interval] = 0.1
 [speed_log_update_multiply] = 5
 [maxDarkDefValueTH] = 220
-[mean] = 0.5
-[stdErr] = 0.1
+[mean] = 0
+[stdErr] = 0
 [benchmarkMode] = 0
 [projectedAreaUL_x] = 0
 [projectedAreaUL_y] = 0
@@ -30,9 +30,9 @@
 [mazeHeight] = 15
 [mazeWidth] = 19
 [mazeRandSeed] = 21734235
-[numRandomGhosts] = 5
-[numAStarGhosts] = 5
-[numSwingGhosts] = 5
+[numRandomGhosts] = 0
+[numAStarGhosts] = 0
+[numSwingGhosts] = 0
 [robotMarkerExt] = 70
 [checkFoodExt] = 80
 [checkGhostExt] = 80

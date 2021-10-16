@@ -50,7 +50,7 @@ int targetTime = 0;
 int turningLock = 0;
 int futuremove;
 int SensorOI = 0;
-init = 0;
+int init = 0;
 
 int selectedLevel;
 
