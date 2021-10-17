@@ -49,10 +49,13 @@ int movefinished = 0;
 int targetTime = 0;
 int turningLock = 0;
 int futuremove;
-int SensorOI = 0;
+int SensorOI = 2;
 int init = 0;
 int turningLockTimer = 0;
-
+//Source point (ROW, COL)
+Pair src = make_pair(1, 1);
+//Destination point (ROW, COL)
+Pair dest = make_pair(3, 9);
 int selectedLevel;
 
 void myMapRead(void);
@@ -124,23 +127,21 @@ int virtualCarInit()
 	//	cout << "\n";
 	//}
 	// 
-	//Source point (ROW, COL)
-	Pair src = make_pair(1, 1);
-	//Destination point (ROW, COL)
-	Pair dest = make_pair(3, 9);
+
 
 	//Calling A* algorithm
-	directions = aStarSearch(map, src, dest);
+	//directions = aStarSearch(map, src, dest);
 	if (selectedLevel == 1) {
-		
+
 		//Do something to visit all the cells
 		printf("Level one has been selected");
-	
+
 	}
 	//If level two is selected find the shortest path between each food pellet
 	else if (selectedLevel == 2) {
 		printf("\nLevel two has been selected\n");
-		directions = getDirectionsFromFoodParticles(map, foodList, src);
+		//directions = getDirectionsFromFoodParticles(map, foodList, src);
+		directions = aStarSearch(map, src, dest);
 
 		printf("\n Printing out the directions between food particles\n");
 		//Printing out directions to get to destination
@@ -167,26 +168,32 @@ int virtualCarInit()
 }
 
 //Main function to update
-int virtualCarUpdate()
-{
+int virtualCarUpdate() {
+
 	if (myTimer.getTimer() < 1 && init == 0) {
 		setVirtualCarSpeed(0.0, 0.0);
-		//printf("\nLine173\n%f\n", myTimer.getTimer());
-	}
-	else {
+	} else {
 		init = 1;
-		printf("\nLine178\n%f\n", myTimer.getTimer());
 	}
 
-	if (init == 1) {
 
-		if (virtualCarSensorStates[SensorOI] == 0 || SensorOI == 0) {
+	if (index > directions.size()) {
+		printf("\nWE ARE DONE!\n");
+		setVirtualCarSpeed(0.0, 0.0);
+	} else if (init == 1) {
+
+		if (virtualCarSensorStates[SensorOI] == 0 || SensorOI == 2) {
 			if (targetTime - 0.4 > (myTimer.getTimer())) {
-				printf("\nLine181\n");
+				if (virtualCarSensorStates[0] == 0) {						// If back-left sensor goes off, adjust left	
+					setVirtualCarSpeed(0.75, 7.0);
+				}
+				else if (virtualCarSensorStates[1] == 0) {					// If back-right sensore goes off, adjust right.
+					setVirtualCarSpeed(0.75, -7.0);
+				}
 			}
 			else {
 				targetTime = 0;
-				SensorOI = 0;
+				SensorOI = 2;
 				if (directions[index] == "U") {
 					currentmove = 1;
 				}
@@ -202,8 +209,14 @@ int virtualCarUpdate()
 				printf("\n%c\n", (directions[index]));
 				
 				if ((currentmove == prevmove + 1) || (currentmove == 4 && prevmove == 1)) {      //if turning right
+					if (turningLockTimer == 0) {
+						turningLockTimer = 1;
+						myTimer.resetTimer();
+						printf("\nReset timer:  %f\n", myTimer.getTimer());
+					}
 					if (myTimer.getTimer() > 0.6 && virtualCarSensorStates[3] == 0) {           //turn clockwise for 2 seconds
 						turningLock = 0;
+						turningLockTimer = 0;
 					}
 					else {
 						turningLock = 1;
@@ -211,8 +224,14 @@ int virtualCarUpdate()
 					}
 				}
 				else if ((currentmove == prevmove + 2) || (currentmove == 3 && prevmove == 1) || (currentmove == 4 && prevmove == 2)) {
-					if (myTimer.getTimer() > 1.6 && virtualCarSensorStates[3]) {
+					if (turningLockTimer == 0) {
+						turningLockTimer = 1;
+						myTimer.resetTimer();
+						printf("\nReset timer:  %f\n", myTimer.getTimer());
+					}
+					if (myTimer.getTimer() > 1.6 && virtualCarSensorStates[3] == 0) {
 						turningLock = 0;
+						turningLockTimer = 0;
 					}
 					else {
 						turningLock = 1;
@@ -225,7 +244,7 @@ int virtualCarUpdate()
 						myTimer.resetTimer();
 						printf("\nReset timer:  %f\n", myTimer.getTimer());
 					}
-					printf("\nChecking for car turn to be done. line 224\nTime: %f\n", myTimer.getTimer());
+					printf("\nChecking for left turn to be done. line 249.Time: %f\n", myTimer.getTimer());
 					if (myTimer.getTimer() > 0.6 && virtualCarSensorStates[3] == 0) {
 						turningLock = 0;
 						turningLockTimer = 0;
@@ -260,15 +279,23 @@ int virtualCarUpdate()
 						futuremove = 4;
 					}
 					if ((futuremove == currentmove + 1) || (futuremove == 4 && currentmove == 1)) {				//Right turn
-						printf("\nSensorOI set to = 5", SensorOI);
+						printf("\nSensorOI set to = 5");
 						SensorOI = 5;
 					}
 					else if ((futuremove == currentmove - 1) || (futuremove == 4 && currentmove == 1)) {
-						printf("\nSensorOI = 4", SensorOI);
+						printf("\nSensorOI = 4");
 						SensorOI = 4;
 					}
 					//printf("\nSensorOI = %d\n", SensorOI);
 				}
+			}
+		} else {
+			if (virtualCarSensorStates[0] == 0) {							// If back-left sensor goes off, adjust left	
+				setVirtualCarSpeed(0.75, 7.0);
+				printf("\n Adjust Left\n");
+			} else if (virtualCarSensorStates[1] == 0) {					// If back-right sensore goes off, adjust right.
+				setVirtualCarSpeed(0.75, -7.0);
+				printf("\nAdjust Right\n");
 			}
 		}
 	}
