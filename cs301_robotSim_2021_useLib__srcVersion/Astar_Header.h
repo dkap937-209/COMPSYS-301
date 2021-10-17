@@ -27,9 +27,8 @@ constexpr auto COL = 19;
 #include <sstream>
 typedef pair<int, int> Pair;
 typedef tuple<double, int, int> Tuple;
-typedef pair<double, pair<int, int> > pPair;
+typedef pair<string, pair<int, int> > pPair;
 
 
-//vector<string> aStarSearch(int grid[][COL], Pair src, Pair dest);
-vector<string> aStarSearch(const array<array<int, COL>, ROW>& grid,const Pair& src, const Pair& dest);
+vector<pPair> aStarSearch(const array<array<int, COL>, ROW>& grid,const Pair& src, const Pair& dest);
 #endif //ASTAR_A_STAR_HEADER_H
