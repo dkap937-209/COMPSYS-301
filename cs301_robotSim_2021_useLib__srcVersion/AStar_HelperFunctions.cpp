@@ -64,7 +64,7 @@ double calculateHValue(const Pair& src, const Pair& dest)
 // A Utility Function to trace the path from the source to
 // destination
 
-vector<string> tracePath(
+vector<pPair> tracePath(
     const array<array<cell, COL>, ROW>& cellDetails,
     const Pair& dest)
 {
@@ -86,7 +86,7 @@ vector<string> tracePath(
         col = temp_col;
     }
     Path.push(make_pair(row, col));
-    vector<string> directions;
+    vector<pPair> directions;
 
     dupPath = Path;
 
@@ -96,16 +96,16 @@ vector<string> tracePath(
     for (int i = 0; i < Path.size() - 1; i++) {
         if (currentPair.first - 1 == nextPair.first) {
 
-            directions.emplace_back("U");
+            directions.emplace_back(make_pair("U", currentPair));
         }
         else if (currentPair.second + 1 == nextPair.second) {
-            directions.emplace_back("R");
+            directions.emplace_back(make_pair("R", currentPair));
         }
         else if (currentPair.first + 1 == nextPair.first) {
-            directions.emplace_back("D");
+            directions.emplace_back(make_pair("D", currentPair));
         }
         else if (currentPair.second - 1 == nextPair.second) {
-            directions.emplace_back("L");
+            directions.emplace_back(make_pair("L", currentPair));
         }
         dupPath.pop();
         currentPair = nextPair;
@@ -123,37 +123,37 @@ vector<string> tracePath(
     return directions;
 }
 
-vector<string> aStarSearch(const array<array<int, COL>, ROW>& grid,
+vector<pPair> aStarSearch(const array<array<int, COL>, ROW>& grid,
     const Pair& src, const Pair& dest)
 {
-    vector<string> emptyVector;
+
     // If the source is out of range
     if (!isValid(grid, src)) {
         printf("Source is invalid\n");
-        return emptyVector;
+        return {};
     }
 
     // If the destination is out of range
     if (!isValid(grid, dest)) {
         printf("Destination is invalid\n");
-        return emptyVector;
+        return {};
     }
 
     // Either the source or the destination is blocked
     if (!isUnBlocked(grid, src)) {
         printf("Source is blocked\n");
-        return emptyVector;
+        return {};
     }
 
     if (!isUnBlocked(grid, dest)) {
         printf("destination is blocked\n");
-        return emptyVector;
+        return {};
     }
 
     // If the destination cell is the same as source cell
     if (isDestination(src, dest)) {
         printf("We are already at the destination\n");
-        return emptyVector;
+        return {};
     }
 
     // Create a closed list and initialise it to false which
@@ -413,6 +413,6 @@ vector<string> aStarSearch(const array<array<int, COL>, ROW>& grid,
     // there is no way to destination cell (due to
     // blockages)
     printf("Failed to find the Destination Cell\n");
-    return emptyVector;
+    return {};
 }
 

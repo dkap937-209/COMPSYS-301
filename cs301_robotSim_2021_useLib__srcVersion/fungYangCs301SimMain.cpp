@@ -40,8 +40,8 @@ array<array<int, COL>, ROW> map = { {} };
 
 //For storing directions robot needs to travel 
 //to get to the destination
-vector<string> directions;
-vector<Pair> foodList;
+vector<pPair> directions;
+vector<Pair> foodList, emptySpots;
 int currentmove;
 int prevmove = 3;						// Initially facing down
 int index = 0;
@@ -63,7 +63,11 @@ void myMapRead(void);
 void turnleft();
 void turnright();
 void readFoodList(void);
-vector<string> getDirectionsFromFoodParticles(const array<array<int, COL>, ROW>& map, vector<Pair> foodList, Pair src);
+void getEmptySpotLocations();
+vector<pPair> getDirectionsFromFoodParticles(const array<array<int, COL>, ROW>& map, vector<Pair> foodList, Pair src);
+
+void visitAllSpots(Pair src);
+
 
 vector<int> virtualCarSensorStates;
 
@@ -136,6 +140,8 @@ int virtualCarInit()
 
 		//Do something to visit all the cells
 		printf("Level one has been selected");
+		getEmptySpotLocations();
+		visitAllSpots(src);
 
 	}
 	//If level two is selected find the shortest path between each food pellet
@@ -144,11 +150,11 @@ int virtualCarInit()
 		//directions = getDirectionsFromFoodParticles(map, foodList, src);
 		directions = aStarSearch(map, src, dest);
 
-		printf("\n Printing out the directions between food particles\n");
-		//Printing out directions to get to destination
-		for (auto& direction : directions) {
-			printf("%s, ", direction.c_str());
-		}
+		//printf("\n Printing out the directions between food particles\n");
+		////Printing out directions to get to destination
+		//for (auto& direction : directions) {
+		//	printf("%s, ", direction.c_str());
+		//}
 	}
 
 	//printf("\n Printing out the directions\n");
@@ -211,16 +217,16 @@ int virtualCarUpdate() {
 			else {
 				targetTime = 0;
 				SensorOI = 2;
-				if (directions[index] == "U") {
+				if (directions[index].first == "U") {
 					currentmove = 1;
 				}
-				if (directions[index] == "R") {
+				if (directions[index].first == "R") {
 					currentmove = 2;
 				}
-				if (directions[index] == "D") {
+				if (directions[index].first == "D") {
 					currentmove = 3;
 				}
-				if (directions[index] == "L") {
+				if (directions[index].first == "L") {
 					currentmove = 4;
 				}
 				printf("\n%c\n", (directions[index]));
@@ -283,16 +289,16 @@ int virtualCarUpdate() {
 					myTimer.resetTimer();
 					index++;
 					prevmove = currentmove;
-					if (directions[index] == "U") {
+					if (directions[index].first == "U") {
 						futuremove = 1;
 					}
-					if (directions[index] == "R") {
+					if (directions[index].first == "R") {
 						futuremove = 2;
 					}
-					if (directions[index] == "D") {
+					if (directions[index].first == "D") {
 						futuremove = 3;
 					}
-					if (directions[index] == "L") {
+					if (directions[index].first == "L") {
 						futuremove = 4;
 					}
 					if ((futuremove == currentmove + 1) || (futuremove == 4 && currentmove == 1)) {				//Right turn
@@ -426,9 +432,9 @@ void readFoodList(void) {
 /*
 * Finds the shortest path between food particles
 */
-vector<string> getDirectionsFromFoodParticles(const array<array<int, COL>, ROW>& map, vector<Pair> foodList, Pair src) {
+vector<pPair> getDirectionsFromFoodParticles(const array<array<int, COL>, ROW>& map, vector<Pair> foodList, Pair src) {
 
-	vector<string>  directions, returnedDirections;
+	vector<pPair>  directions, returnedDirections;
 
 	//Get directions from starting point to first food item
 	returnedDirections = aStarSearch(map, src, foodList[0]);
@@ -448,14 +454,52 @@ vector<string> getDirectionsFromFoodParticles(const array<array<int, COL>, ROW>&
 	return directions;
 }
 
+/*
+* Retrieves all spots that the robot can move to
+*/
+void getEmptySpotLocations() {
+	for (int row = 0; row < ROW; row++) {
+		for (int col = 0; col < COL; col++) {
+			if (map[row][col] == 0) {
+				emptySpots.emplace_back(make_pair(row, col));
+			}
+		}
+	}
+}
+
+void visitAllSpots(Pair src) {
+
+	vector<pPair> returnedDirections;
+	Pair nextPos = emptySpots[0];
+
+	//While there are spots that have not been visited continue to travel
+	while (!emptySpots.empty()) {
+		emptySpots.erase(emptySpots.begin());
+		returnedDirections = aStarSearch(map, src, nextPos);
+		directions.insert(directions.end(), returnedDirections.begin(), returnedDirections.end());
+
+		//Remove locations we have passed through from emptySpots vector
+		for (auto& direction : returnedDirections) {
+			for (int i = 0; i < emptySpots.size(); i++) {
+				if (emptySpots[i] == direction.second) {
+					emptySpots.erase(emptySpots.begin() + i);
+					break;
+				}
+			}
+		}
+
+		src = nextPos;
+		nextPos = emptySpots[0];
+	}
+	printf("\nNumber of steps taken: %d\n", directions.size());
+}
+
 
 
 
 int main(int argc, char** argv)
 {
-
-
-	selectedLevel = 2; 
+	selectedLevel = 1; 
 
 	FungGlAppMainFuction(argc, argv);
 
