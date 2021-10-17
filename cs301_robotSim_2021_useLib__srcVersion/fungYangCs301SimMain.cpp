@@ -202,10 +202,10 @@ int virtualCarUpdate() {
 		if (virtualCarSensorStates[SensorOI] == 0 || SensorOI == 2) {
 			if (targetTime - 0.4 > (myTimer.getTimer())) {
 				if (virtualCarSensorStates[0] == 0) {						// If back-left sensor goes off, adjust left	
-					setVirtualCarSpeed(0.6, 10.0);
+					setVirtualCarSpeed(0.6, 7.0);
 				}
 				else if (virtualCarSensorStates[1] == 0) {					// If back-right sensore goes off, adjust right.
-					setVirtualCarSpeed(0.6, -10.0);
+					setVirtualCarSpeed(0.6, -7.0);
 				}
 			}
 			else {
@@ -231,7 +231,7 @@ int virtualCarUpdate() {
 						myTimer.resetTimer();
 						printf("\nReset timer:  %f\n", myTimer.getTimer());
 					}
-					if (myTimer.getTimer() > 0.8 && virtualCarSensorStates[3] == 0) {           //turn clockwise for 2 seconds
+					if (myTimer.getTimer() > 0.8 && virtualCarSensorStates[3] == 0 && (virtualCarSensorStates[5] == 0)) {           //turn clockwise for 2 seconds
 						turningLock = 0;
 						turningLockTimer = 0;
 					}
@@ -262,7 +262,7 @@ int virtualCarUpdate() {
 						printf("\nReset timer:  %f\n", myTimer.getTimer());
 					}
 					printf("\nChecking for left turn to be done. line 249.Time: %f\n", myTimer.getTimer());
-					if (myTimer.getTimer() > 0.8 && virtualCarSensorStates[3] == 0) {
+					if (myTimer.getTimer() > 0.8 && virtualCarSensorStates[3] == 0 && (virtualCarSensorStates[4] == 0)) {
 						turningLock = 0;
 						turningLockTimer = 0;
 						printf("\nFinished turning left\n");
@@ -308,10 +308,10 @@ int virtualCarUpdate() {
 			}
 		} else {
 			if (virtualCarSensorStates[0] == 0) {							// If back-left sensor goes off, adjust left	
-				setVirtualCarSpeed(0.6, 10.0);
+				setVirtualCarSpeed(0.6, 7.0);
 				printf("\n Adjust Left\n");
 			} else if (virtualCarSensorStates[1] == 0) {					// If back-right sensore goes off, adjust right.
-				setVirtualCarSpeed(0.6, -10.0);
+				setVirtualCarSpeed(0.6, -7.0);
 				printf("\nAdjust Right\n");
 			}
 		}
