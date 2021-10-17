@@ -55,7 +55,8 @@ int turningLockTimer = 0;
 //Source point (ROW, COL)
 Pair src = make_pair(1, 1);
 //Destination point (ROW, COL)
-Pair dest = make_pair(3, 9);
+Pair dest = make_pair(8,13);
+int journeyComplete = 0;
 int selectedLevel;
 
 void myMapRead(void);
@@ -167,6 +168,20 @@ int virtualCarInit()
 	return 1;
 }
 
+
+
+
+/*
+ Modify sensor position to fix turning issue.
+ Remove current functionality of back two sensors.
+ Instead, place back two sensors right behind centre-left and centre-right sensors.
+ When looking to approach a turn, use centre-right and centre-left to check (what we currently do).
+ But when you start turning, the condition to end the turn is that the front, centre, and back-side 
+ (left or right depending on turn) must be on the line.
+*/
+
+
+
 //Main function to update
 int virtualCarUpdate() {
 
@@ -176,19 +191,21 @@ int virtualCarUpdate() {
 		init = 1;
 	}
 
-
-	if (index > directions.size()) {
+	if (journeyComplete == 1) {
+		printf("d");
+	} else if (index > directions.size()) {
 		printf("\nWE ARE DONE!\n");
 		setVirtualCarSpeed(0.0, 0.0);
+		journeyComplete = 1;
 	} else if (init == 1) {
 
 		if (virtualCarSensorStates[SensorOI] == 0 || SensorOI == 2) {
 			if (targetTime - 0.4 > (myTimer.getTimer())) {
 				if (virtualCarSensorStates[0] == 0) {						// If back-left sensor goes off, adjust left	
-					setVirtualCarSpeed(0.75, 7.0);
+					setVirtualCarSpeed(0.6, 10.0);
 				}
 				else if (virtualCarSensorStates[1] == 0) {					// If back-right sensore goes off, adjust right.
-					setVirtualCarSpeed(0.75, -7.0);
+					setVirtualCarSpeed(0.6, -10.0);
 				}
 			}
 			else {
@@ -214,7 +231,7 @@ int virtualCarUpdate() {
 						myTimer.resetTimer();
 						printf("\nReset timer:  %f\n", myTimer.getTimer());
 					}
-					if (myTimer.getTimer() > 0.6 && virtualCarSensorStates[3] == 0) {           //turn clockwise for 2 seconds
+					if (myTimer.getTimer() > 0.8 && virtualCarSensorStates[3] == 0) {           //turn clockwise for 2 seconds
 						turningLock = 0;
 						turningLockTimer = 0;
 					}
@@ -245,7 +262,7 @@ int virtualCarUpdate() {
 						printf("\nReset timer:  %f\n", myTimer.getTimer());
 					}
 					printf("\nChecking for left turn to be done. line 249.Time: %f\n", myTimer.getTimer());
-					if (myTimer.getTimer() > 0.6 && virtualCarSensorStates[3] == 0) {
+					if (myTimer.getTimer() > 0.8 && virtualCarSensorStates[3] == 0) {
 						turningLock = 0;
 						turningLockTimer = 0;
 						printf("\nFinished turning left\n");
@@ -257,12 +274,12 @@ int virtualCarUpdate() {
 				}
 
 				if (turningLock == 0) {
-					printf("\nLine242\n");
+					printf("\nLine263\n");
 					while (directions[index + 1] == directions[index]) {
 						index++;
-						targetTime += 1;
+						targetTime += 1.5;
 					}
-					setVirtualCarSpeed(0.75, 0.0);      //set car to move forward and increment values
+					setVirtualCarSpeed(0.6, 0.0);      //set car to move forward and increment values
 					myTimer.resetTimer();
 					index++;
 					prevmove = currentmove;
@@ -291,10 +308,10 @@ int virtualCarUpdate() {
 			}
 		} else {
 			if (virtualCarSensorStates[0] == 0) {							// If back-left sensor goes off, adjust left	
-				setVirtualCarSpeed(0.75, 7.0);
+				setVirtualCarSpeed(0.6, 10.0);
 				printf("\n Adjust Left\n");
 			} else if (virtualCarSensorStates[1] == 0) {					// If back-right sensore goes off, adjust right.
-				setVirtualCarSpeed(0.75, -7.0);
+				setVirtualCarSpeed(0.6, -10.0);
 				printf("\nAdjust Right\n");
 			}
 		}
