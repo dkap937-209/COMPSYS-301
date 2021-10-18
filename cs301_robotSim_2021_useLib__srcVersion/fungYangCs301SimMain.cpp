@@ -147,7 +147,7 @@ int virtualCarInit()
 
 		/*printf("Size of directions: %d", directions.size());*/
 		for (auto& direction : directions) {
-			cout << direction.first << endl;
+			cout << direction.first;
 		}
 
 	}
@@ -243,8 +243,9 @@ int virtualCarUpdate() {
 					currentmove = 4;
 				}
 				//printf("\n%c\n", (directions[index]));
-
-				if ((currentmove == prevmove + 1) || (currentmove == 4 && prevmove == 1)) {      //if turning right
+				printf("\n%d\n", currentmove);
+				printf("\n%d\n", prevmove);
+				if ((currentmove == prevmove + 1) || (currentmove == 1 && prevmove == 4)) {      //if turning right
 					if (turningLockTimer == 0) {
 						turningLockTimer = 1;
 						myTimer.resetTimer();
@@ -259,7 +260,7 @@ int virtualCarUpdate() {
 					}
 				}
 				else if ((currentmove == prevmove + 2) || (currentmove == 1 && prevmove == 3) || (currentmove == 2 && prevmove == 4)) {
-					//printf("\nReset timer:  %f\n", myTimer.getTimer());
+					printf("\nU TURN BABY\n");
 					printf("\n260\n");
 					turningLock = 1;
 					if (turningAroundTimer == 0) {
@@ -290,7 +291,8 @@ int virtualCarUpdate() {
 						}
 					}
 				}
-				else if ((currentmove == prevmove - 1) || (currentmove == 1 && prevmove == 4)) {
+				else if ((currentmove == prevmove - 1) || (currentmove == 4 && prevmove == 1)) {
+					printf("\nGOING LEFT\n");
 					if (turningLockTimer == 0) {
 						turningLockTimer = 1;
 						myTimer.resetTimer();
@@ -331,7 +333,7 @@ int virtualCarUpdate() {
 					if (directions[index].first == "L") {
 						futuremove = 4;
 					}
-					if ((futuremove == currentmove + 1) || (futuremove == 4 && currentmove == 1)) {				//Right turn
+					if ((futuremove == currentmove + 1) || (futuremove == 1 && currentmove == 4)) {				//Right turn
 						//printf("\nSensorOI set to = 5");
 						SensorOI = 5;
 					}
@@ -539,7 +541,7 @@ void visitAllSpots(Pair src) {
 
 int main(int argc, char** argv)
 {
-	selectedLevel = 2;
+	selectedLevel = 1;
 
 	FungGlAppMainFuction(argc, argv);
 
