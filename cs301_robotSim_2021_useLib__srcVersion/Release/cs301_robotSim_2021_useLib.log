@@ -1,42 +1,47 @@
 ﻿  fungYangCs301SimMain.cpp
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(93,24): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(149,41): warning C4244: 'argument': conversion from '_Ty1' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(96,24): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(152,41): warning C4244: 'argument': conversion from '_Ty1' to 'float', possible loss of data
           with
           [
               _Ty1=int
           ]
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(149,37): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(150,41): warning C4244: 'argument': conversion from '_Ty2' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(152,37): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(153,41): warning C4244: 'argument': conversion from '_Ty2' to 'float', possible loss of data
           with
           [
               _Ty2=int
           ]
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(150,37): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(174,19): warning C4018: '>': signed/unsigned mismatch
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(175,30): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(182,34): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(184,35): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(224,34): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(259,24): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(261,33): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(294,32): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(296,33): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(298,34): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(340,38): warning C4018: '<': signed/unsigned mismatch
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(360,6): warning C4101: 'columnIndex': unreferenced local variable
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(417,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(471,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(153,37): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(185,19): warning C4018: '>': signed/unsigned mismatch
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(186,30): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(193,34): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(195,35): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(235,34): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(270,24): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(272,33): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(305,32): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(307,33): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(309,34): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(319,10): warning C4804: '<': unsafe use of type 'bool' in operation
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(320,68): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(322,68): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(324,68): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(326,68): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(346,38): warning C4018: '<': signed/unsigned mismatch
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(366,6): warning C4101: 'columnIndex': unreferenced local variable
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(423,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(477,22): warning C4018: '<': signed/unsigned mismatch
   Generating code
   Finished generating code
-cs301_robotSim_lib_2021.lib(mainFungGLAppEngin.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(mainFungGLAppEngin.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(gameManager.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(gameManager.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(highPerformanceTimer.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(highPerformanceTimer.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(Geometry.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(Geometry.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(AStarManager.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(AStarManager.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(texture.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(texture.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(Lighting.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(Lighting.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(my_GL_Draw_Funcs.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(my_GL_Draw_Funcs.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(mazeGen.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(mazeGen.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(Utilities.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(Utilities.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-cs301_robotSim_lib_2021.lib(PathFinder.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(PathFinder.obj)' or at 'C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
-  cs301_robotSim_2021_useLib.vcxproj -> C:\Users\darpa\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_2021_useLib.exe
+cs301_robotSim_lib_2021.lib(mainFungGLAppEngin.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(mainFungGLAppEngin.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(gameManager.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(gameManager.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(highPerformanceTimer.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(highPerformanceTimer.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(Geometry.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(Geometry.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(AStarManager.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(AStarManager.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(texture.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(texture.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(Lighting.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(Lighting.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(my_GL_Draw_Funcs.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(my_GL_Draw_Funcs.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(mazeGen.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(mazeGen.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(Utilities.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(Utilities.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+cs301_robotSim_lib_2021.lib(PathFinder.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(PathFinder.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
+  cs301_robotSim_2021_useLib.vcxproj -> C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_2021_useLib.exe

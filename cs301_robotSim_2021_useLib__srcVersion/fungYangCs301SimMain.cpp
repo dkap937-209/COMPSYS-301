@@ -38,7 +38,7 @@ extern int maxDarkDefValueTH;
 
 vector<int> virtualCarSensorStates;
 vector<ghostInfoPack> ghostInfoPackList;
-highPerformanceTimer myTimer;
+highPerformanceTimer myTimer, movementTimer;
 
 
 // Our Function prototypes
@@ -67,6 +67,9 @@ Pair dest;											// Destination point (ROW, COL). Defined in main()
 int journeyComplete = 0;							// Variable that is set when journey is complete
 int selectedLevel;									// Variable that dictacts what level is active. This is set in main()
 int prevmove;										// The direction that the robot starts facing. This is set in main()
+float estimatedXPos, estimatedYPos, estimatedAngle;	// Use of odometry to estimate the position of the car in the maze.
+
+
 
 
 // Provided helper function
@@ -152,6 +155,10 @@ int virtualCarInit() {
 	currentCarPosCoord_Y = floorToCoordY(currentCarPosFloor_Y);
 	myTimer.resetTimer();
 
+	estimatedYPos = currentCarPosFloor_Y;
+	estimatedXPos = currentCarPosFloor_X;
+	estimatedAngle = currentCarAngle;
+
 	return 1;
 }
 
@@ -159,6 +166,10 @@ int virtualCarInit() {
 
 //Main function to update car position
 int virtualCarUpdate() {
+
+	printf("X: %f	Y: %f,		Angle: %f\n", estimatedXPos, estimatedYPos, estimatedAngle);
+
+
 
 	// Provides a 1-second buffer before first moving
 	if (myTimer.getTimer() < 1 && init == 0) {
@@ -301,26 +312,21 @@ int virtualCarUpdate() {
 	}
 
 
-	
-	//below is optional. just to provid some status report .
-	//{--------------------------------------------------------------
+	if (virtualCarAngularSpeed != 0 && virtualCarLinearSpeed) {
+		estimatedAngle += virtualCarAngularSpeed;
+	}
 
-	//if (myTimer.getTimer() > 0.5)
-	//{
-	//	myTimer.resetTimer();
-	//	//for (int i = 0; i < ghostInfoPackList.size(); i++)
-	//	//	cout << ghostInfoPackList[i].ghostType << " , " << ghostInfoPackList[i].direction << endl;
-	//	cout << "=====================================" << endl;
-	//	cout << "current car floor X, Y, theta = " << coordToFloorX(currentCarPosCoord_X) << " , " << coordToFloorY(currentCarPosCoord_Y) << " , " << currentCarAngle << endl;
-	//	cout << "current Cell X, Y = " << coordToCellX(currentCarPosCoord_X) << " , " << coordToCellY(currentCarPosCoord_Y) << endl;
-	//	cout << "-----------------------------------------" << endl;
-	//	cout << " ghost list info:" << endl;
-	//	for (int i = 0; i < ghostInfoPackList.size(); i++)
-	//	{
-	//		cout << "g[" << i << "]: (" << ghostInfoPackList[i].coord_x << ", " << ghostInfoPackList[i].coord_y <<"); [s="<<
-	//			ghostInfoPackList[i].speed<<"; [d="<< ghostInfoPackList[i].direction << "]; [T=" << ghostInfoPackList[i].ghostType<<"]" << endl;
-	//	}
-	//}
+	if (-15 < estimatedAngle < 15) {
+		estimatedXPos += virtualCarLinearSpeed * movementTimer.getTimer();
+	} else if (estimatedAngle < 105) {
+		estimatedYPos -= virtualCarLinearSpeed * movementTimer.getTimer();
+	} else if (estimatedAngle < 195) {
+		estimatedXPos -= virtualCarLinearSpeed * movementTimer.getTimer();		
+	} else {
+		estimatedYPos += virtualCarLinearSpeed * movementTimer.getTimer();
+	}
+
+	movementTimer.resetTimer();
 
 	return 1;
 }
