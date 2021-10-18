@@ -6,7 +6,11 @@ using namespace std;
 
 constexpr auto ROW = 15;
 constexpr auto COL = 19;
-//constexpr auto MAX = 99999;
+constexpr auto UP = 1;
+constexpr auto RIGHT = 2;
+constexpr auto DOWN = 3;
+constexpr auto LEFT = 4;
+
 #include <vector>
 #include <string>
 #include <queue>

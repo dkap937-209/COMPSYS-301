@@ -231,21 +231,21 @@ int virtualCarUpdate() {
 				targetTime = 0;
 				SensorOI = 10;
 				if (directions[index].first == "U") {
-					currentmove = 1;
+					currentmove = UP;
 				}
 				if (directions[index].first == "R") {
-					currentmove = 2;
+					currentmove = RIGHT;
 				}
 				if (directions[index].first == "D") {
-					currentmove = 3;
+					currentmove = DOWN;
 				}
 				if (directions[index].first == "L") {
-					currentmove = 4;
+					currentmove = LEFT;
 				}
 				//printf("\n%c\n", (directions[index]));
 				printf("\n%d\n", currentmove);
 				printf("\n%d\n", prevmove);
-				if ((currentmove == prevmove + 1) || (currentmove == 1 && prevmove == 4)) {      //if turning right
+				if ((currentmove == prevmove + 1) || (currentmove == UP && prevmove == LEFT)) {      //if turning right
 					if (turningLockTimer == 0) {
 						turningLockTimer = 1;
 						myTimer.resetTimer();
@@ -259,7 +259,7 @@ int virtualCarUpdate() {
 						setVirtualCarSpeed(0.0, -45);
 					}
 				}
-				else if ((currentmove == prevmove + 2) || (currentmove == 1 && prevmove == 3) || (currentmove == 2 && prevmove == 4)) {
+				else if ((currentmove == prevmove + 2) || (currentmove == UP && prevmove == DOWN) || (currentmove == RIGHT && prevmove == LEFT)) {
 					printf("\nU TURN BABY\n");
 					printf("\n260\n");
 					turningLock = 1;
@@ -291,7 +291,7 @@ int virtualCarUpdate() {
 						}
 					}
 				}
-				else if ((currentmove == prevmove - 1) || (currentmove == 4 && prevmove == 1)) {
+				else if ((currentmove == prevmove - 1) || (currentmove == LEFT && prevmove == UP)) {
 					printf("\nGOING LEFT\n");
 					if (turningLockTimer == 0) {
 						turningLockTimer = 1;
@@ -322,22 +322,22 @@ int virtualCarUpdate() {
 					index++;
 					prevmove = currentmove;
 					if (directions[index].first == "U") {
-						futuremove = 1;
+						futuremove = UP;
 					}
 					if (directions[index].first == "R") {
-						futuremove = 2;
+						futuremove = RIGHT;
 					}
 					if (directions[index].first == "D") {
-						futuremove = 3;
+						futuremove = DOWN;
 					}
 					if (directions[index].first == "L") {
-						futuremove = 4;
+						futuremove = LEFT;
 					}
-					if ((futuremove == currentmove + 1) || (futuremove == 1 && currentmove == 4)) {				//Right turn
+					if ((futuremove == currentmove + 1) || (futuremove == UP && currentmove == LEFT)) {				//Right turn
 						//printf("\nSensorOI set to = 5");
 						SensorOI = 5;
 					}
-					else if ((futuremove == currentmove - 1) || (futuremove == 4 && currentmove == 1)) {
+					else if ((futuremove == currentmove - 1) || (futuremove == LEFT && currentmove == UP)) {
 						//printf("\nSensorOI = 4");
 						SensorOI = 4;
 					}
@@ -541,7 +541,7 @@ void visitAllSpots(Pair src) {
 
 int main(int argc, char** argv)
 {
-	selectedLevel = 1;
+	selectedLevel = 2;
 
 	FungGlAppMainFuction(argc, argv);
 
