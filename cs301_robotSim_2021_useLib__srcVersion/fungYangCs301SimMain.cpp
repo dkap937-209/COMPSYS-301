@@ -228,7 +228,7 @@ int virtualCarUpdate() {
 							turningLockTimer = 1;
 							myTimer.resetTimer();
 						}
-						if (myTimer.getTimer() > 2.3 && virtualCarSensorStates[3] == 0) {		// Rotate until sensor is active AND sufficient time has passed
+						if (myTimer.getTimer() > 3.6 && virtualCarSensorStates[3] == 0) {		// Rotate until sensor is active AND sufficient time has passed
 							turningLock = 0;
 							turningLockTimer = 0;
 						}
@@ -443,12 +443,27 @@ void getEmptySpotLocations() {
 void visitAllSpots(Pair src) {
 
 	vector<pPair> returnedDirections;
+	array<array<int, COL>, ROW> altMap = map;
 	Pair nextPos = emptySpots[0];
+
 
 	//While there are spots that have not been visited continue to travel
 	while (!emptySpots.empty()) {
 		emptySpots.erase(emptySpots.begin());
-		returnedDirections = aStarSearch(map, src, nextPos);
+
+		//Try to travel to the next point that can pick the food items up
+		returnedDirections = aStarSearch(altMap, src, nextPos);
+		//If we cannot reach the destination, call A* on the regular map
+		//TODO: try to find the closest empty space direction in if statement
+		if (returnedDirections.size() == 0) {
+			returnedDirections = aStarSearch(map, src, nextPos);
+		}
+
+		//Block positions we have already visited
+		for (auto& direction : directions) {
+			altMap[direction.second.first][direction.second.second] = 1;
+		}
+
 		directions.insert(directions.end(), returnedDirections.begin(), returnedDirections.end());
 
 		//Remove locations we have passed through from emptySpots vector
@@ -472,7 +487,7 @@ void visitAllSpots(Pair src) {
 
 int main(int argc, char** argv)
 {
-	selectedLevel = 2;
+	selectedLevel = 1;
 	prevmove = DOWN;
 	src = make_pair(1, 1);
 	dest = make_pair(8, 13);
