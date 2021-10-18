@@ -49,7 +49,7 @@ int movefinished = 0;
 int targetTime = 0;
 int turningLock = 0;
 int futuremove;
-int SensorOI = 2;
+int SensorOI = 10;
 int init = 0;
 int turningLockTimer = 0;
 //Source point (ROW, COL)
@@ -175,19 +175,6 @@ int virtualCarInit()
 }
 
 
-
-
-/*
- Modify sensor position to fix turning issue.
- Remove current functionality of back two sensors.
- Instead, place back two sensors right behind centre-left and centre-right sensors.
- When looking to approach a turn, use centre-right and centre-left to check (what we currently do).
- But when you start turning, the condition to end the turn is that the front, centre, and back-side 
- (left or right depending on turn) must be on the line.
-*/
-
-
-
 //Main function to update
 int virtualCarUpdate() {
 
@@ -205,18 +192,18 @@ int virtualCarUpdate() {
 		journeyComplete = 1;
 	} else if (init == 1) {
 
-		if (virtualCarSensorStates[SensorOI] == 0 || SensorOI == 2) {
+		if (virtualCarSensorStates[SensorOI] == 0 || SensorOI == 10) {
 			if (targetTime - 0.4 > (myTimer.getTimer())) {
 				if (virtualCarSensorStates[0] == 0) {						// If back-left sensor goes off, adjust left	
-					setVirtualCarSpeed(0.6, 4.0);
+					setVirtualCarSpeed(0.6, 20.0);
 				}
 				else if (virtualCarSensorStates[1] == 0) {					// If back-right sensore goes off, adjust right.
-					setVirtualCarSpeed(0.6, -4.0);
+					setVirtualCarSpeed(0.6, -20.0);
 				}
 			}
 			else {
 				targetTime = 0;
-				SensorOI = 2;
+				SensorOI = 10;
 				if (directions[index].first == "U") {
 					currentmove = 1;
 				}
@@ -229,13 +216,11 @@ int virtualCarUpdate() {
 				if (directions[index].first == "L") {
 					currentmove = 4;
 				}
-				printf("\n%c\n", (directions[index]));
 				
 				if ((currentmove == prevmove + 1) || (currentmove == 4 && prevmove == 1)) {      //if turning right
 					if (turningLockTimer == 0) {
 						turningLockTimer = 1;
 						myTimer.resetTimer();
-						printf("\nReset timer:  %f\n", myTimer.getTimer());
 					}
 					if (myTimer.getTimer() > 0.8 && virtualCarSensorStates[3] == 0) {           //turn clockwise for 2 seconds
 						turningLock = 0;
@@ -243,14 +228,13 @@ int virtualCarUpdate() {
 					}
 					else {
 						turningLock = 1;
-						setVirtualCarSpeed(0.0, -45);
+						setVirtualCarSpeed(0.0, -60);
 					}
 				}
 				else if ((currentmove == prevmove + 2) || (currentmove == 3 && prevmove == 1) || (currentmove == 4 && prevmove == 2)) {
 					if (turningLockTimer == 0) {
 						turningLockTimer = 1;
 						myTimer.resetTimer();
-						printf("\nReset timer:  %f\n", myTimer.getTimer());
 					}
 					if (myTimer.getTimer() > 1.6 && virtualCarSensorStates[3] == 0) {
 						turningLock = 0;
@@ -265,23 +249,19 @@ int virtualCarUpdate() {
 					if (turningLockTimer == 0) {
 						turningLockTimer = 1;
 						myTimer.resetTimer();
-						printf("\nReset timer:  %f\n", myTimer.getTimer());
 					}
-					printf("\nChecking for left turn to be done. line 249.Time: %f\n", myTimer.getTimer());
 					if (myTimer.getTimer() > 0.8 && virtualCarSensorStates[3] == 0) {
 						turningLock = 0;
 						turningLockTimer = 0;
-						printf("\nFinished turning left\n");
 					}
 					else {
 						turningLock = 1;
-						setVirtualCarSpeed(0.0, 45);
+						setVirtualCarSpeed(0.0, 60);
 					}
 				}
 
 				if (turningLock == 0) {
-					printf("\nLine263\n");
-					while (directions[index + 1] == directions[index]) {
+					while (directions[index + 1].first == directions[index].first) {
 						index++;
 						targetTime += 1.5;
 					}
@@ -302,23 +282,20 @@ int virtualCarUpdate() {
 						futuremove = 4;
 					}
 					if ((futuremove == currentmove + 1) || (futuremove == 4 && currentmove == 1)) {				//Right turn
-						printf("\nSensorOI set to = 5");
 						SensorOI = 5;
 					}
 					else if ((futuremove == currentmove - 1) || (futuremove == 4 && currentmove == 1)) {
-						printf("\nSensorOI = 4");
 						SensorOI = 4;
 					}
-					//printf("\nSensorOI = %d\n", SensorOI);
 				}
 			}
 		} else {
-			if (virtualCarSensorStates[0] == 0) {							// If back-left sensor goes off, adjust left	
-				setVirtualCarSpeed(0.6, 4.0);
-				printf("\n Adjust Left\n");
+			if (virtualCarSensorStates[3] == 0) {
+				setVirtualCarSpeed(0.6, 0.0);
+			} else if (virtualCarSensorStates[0] == 0) {					// If back-left sensor goes off, adjust left	
+				setVirtualCarSpeed(0.6, 20.0);
 			} else if (virtualCarSensorStates[1] == 0) {					// If back-right sensore goes off, adjust right.
-				setVirtualCarSpeed(0.6, -4.0);
-				printf("\nAdjust Right\n");
+				setVirtualCarSpeed(0.6, -20.0);
 			}
 		}
 	}
@@ -499,7 +476,7 @@ void visitAllSpots(Pair src) {
 
 int main(int argc, char** argv)
 {
-	selectedLevel = 1; 
+	selectedLevel = 2; 
 
 	FungGlAppMainFuction(argc, argv);
 
