@@ -58,12 +58,11 @@ int futuremove;										// The direction that will be moved in next.
 int index = 0;										// Index value to be used in directions array.
 int targetTime = 0;									// Time value to be used as reference to sensor check when travelling straight
 int turningLockTimer = 0;							// Timer to be used as reference to sensor check when turning
-int turningLock = 0;								// Lock to be applied when rotating
-int turningAroundTimer = 0;							// .....
+int turningLock = 0;								// Lock to be applied when rotating 90 degrees
+int turningAroundTimer = 0;							// Lock to be applied when rotating 180 degrees
 int SensorOI = 10;									// Sensor Of Interest. Index to be used when checking sensors
 int init = 0;										// Inital variable to delay start
 Pair src;											// Source point (ROW, COL). Defined in main()
-Pair dest;											// Destination point (ROW, COL). Defined in main()
 int journeyComplete = 0;							// Variable that is set when journey is complete
 int selectedLevel;									// Variable that dictacts what level is active. This is set in main()
 int prevmove;										// The direction that the robot starts facing. This is set in main()
@@ -102,64 +101,70 @@ int virtualCarInit() {
 	//virtualCarLinearSpeedFloor = 130;//mm
 	//currentCarPosFloor_X = 2000;//mm
 	//currentCarPosFloor_Y = 1000;//mm
-	//virtualCarAngularSpeed_seed = 40;//degree
-	//maxDarkDefValueTH = 20;
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//virtualCarAngularSpeed_seed = 40;//degree
+//maxDarkDefValueTH = 20;
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-	// Depending on the defined value of prevmode at the start (defined in main), intialise the direction the robot is facing. 
-	if (prevmove == 1) {
-		currentCarAngle = 90;
+// Depending on the defined value of prevmode at the start (defined in main), intialise the direction the robot is facing. 
+if (prevmove == UP) {
+currentCarAngle = 90;
+estimatedAngle = 90;
+}
+else if (prevmove == LEFT) {
+currentCarAngle = 0;
+estimatedAngle = 0;
+}
+else if (prevmove == DOWN) {
+currentCarAngle = 270;
+estimatedAngle = 270;
+}
+else {
+currentCarAngle = 180;
+estimatedAngle = 180;
+}
+
+myMapRead();						// Read the map.txt file
+readFoodList();						// Read the foodlist.txt file
+
+//Calling A* algorithm
+if (selectedLevel == 1) {
+
+	printf("Level one has been selected");
+	getEmptySpotLocations();
+	visitAllSpots(src);
+	printf("Printing out directions to travel everywhere\n");
+
+	// Printing directions
+	for (auto& direction : directions) {
+		cout << direction.first;
 	}
-	else if (prevmove == 2) {
-		currentCarAngle = 0;
+}
+else if (selectedLevel == 2) {
+	printf("\nLevel two has been selected\n");
+	directions = getDirectionsFromFoodParticles(map, foodList, src);
+
+	printf("\n Printing out the directions between food particles\n");
+	//Printing out directions to get to destination
+	for (auto& direction : directions) {
+		printf("%s, ", direction.first.c_str());
 	}
-	else if (prevmove == 3) {
-		currentCarAngle = 270;
-	}
-	else {
-		currentCarAngle = 180;
-	}
+}
 
-	myMapRead();						// Read the map.txt file
-	readFoodList();						// Read the foodlist.txt file
+virtualCarLinearSpeed_seed = virtualCarLinearSpeedFloor * floorToCoordScaleFactor;//coord
 
-	//Calling A* algorithm
-	if (selectedLevel == 1) {
+// Establish where the car begins on the map.
+currentCarPosFloor_X = cellToFloorX(src.first);
+currentCarPosFloor_Y = cellToFloorY(src.second);
+currentCarPosCoord_X = floorToCoordX(currentCarPosFloor_X);
+currentCarPosCoord_Y = floorToCoordY(currentCarPosFloor_Y);
+myTimer.resetTimer();
+movementTimer.resetTimer();
 
-		printf("Level one has been selected");
-		getEmptySpotLocations();
-		visitAllSpots(src);
-		printf("Printing out directions to travel everywhere\n");
+// Establish starting position
+estimatedYPos = currentCarPosCoord_Y;
+estimatedXPos = currentCarPosCoord_X;
 
-		// Printing directions
-		for (auto& direction : directions) {
-			cout << direction.first;
-		}
-	} else if (selectedLevel == 2) {
-		printf("\nLevel two has been selected\n");
-		directions = getDirectionsFromFoodParticles(map, foodList, src);
-
-		printf("\n Printing out the directions between food particles\n");
-		//Printing out directions to get to destination
-		for (auto& direction : directions) {
-			printf("%s, ", direction.first.c_str());
-		}
-	}
-
-	virtualCarLinearSpeed_seed = virtualCarLinearSpeedFloor * floorToCoordScaleFactor;//coord
-
-	// Establish where the car begins on the map.
-	currentCarPosFloor_X = cellToFloorX(src.first);
-	currentCarPosFloor_Y = cellToFloorY(src.second);
-	currentCarPosCoord_X = floorToCoordX(currentCarPosFloor_X);
-	currentCarPosCoord_Y = floorToCoordY(currentCarPosFloor_Y);
-	myTimer.resetTimer();
-
-	estimatedYPos = currentCarPosFloor_Y;
-	estimatedXPos = currentCarPosFloor_X;
-	estimatedAngle = currentCarAngle;
-
-	return 1;
+return 1;
 }
 
 
@@ -167,14 +172,14 @@ int virtualCarInit() {
 //Main function to update car position
 int virtualCarUpdate() {
 
-	printf("X: %f	Y: %f,		Angle: %f\n", estimatedXPos, estimatedYPos, estimatedAngle);
-
+	vector<pPair> updatedDirections;
 
 
 	// Provides a 1-second buffer before first moving
 	if (myTimer.getTimer() < 1 && init == 0) {
 		setVirtualCarSpeed(0.0, 0.0);
-	} else {
+	}
+	else {
 		init = 1;
 	}
 
@@ -182,19 +187,86 @@ int virtualCarUpdate() {
 		setVirtualCarSpeed(0.0, 0.0);
 		printf("Car has arrived at destination\n");
 		while (1);
-	} else if (index > directions.size()) {				//Still have 1 more move to make
-		setVirtualCarSpeed(1.2, 0.0);
+	}
+	else if (index > directions.size()) {				//Still have 1 more move to make
+		setVirtualCarSpeed(0.6, 0.0);
 		journeyComplete = 1;
-	} else if (init == 1) {
+	}
+	else if (init == 1) {
 		if (virtualCarSensorStates[SensorOI] == 0 || SensorOI == 10) {		// If the sensor of interest is under light OR sensor of interest value is dummy value
 			if (targetTime > (myTimer.getTimer())) {						// While car has not finished straight path (length of more than 1 cell)
+
 				// Check for front-side sensors to help adjust direction
 				if (virtualCarSensorStates[0] == 0) {						// If back-left sensor goes off, adjust left	
 					setVirtualCarSpeed(0.6, 25.0);
-				} else if (virtualCarSensorStates[1] == 0) {					// If back-right sensore goes off, adjust right.
+				}
+				else if (virtualCarSensorStates[1] == 0) {				// If back-right sensore goes off, adjust right.
 					setVirtualCarSpeed(0.6, -25.0);
 				}
-			} else {
+			}
+			else {
+
+				// If the car is not where it is supposed to be
+				printf("X:%i		Y:%i\n", coordToCellX(estimatedXPos), coordToCellY(estimatedYPos));
+				printf("DX: %i		DY:%i\n", directions[index].second.second, directions[index].second.first);
+				if (coordToCellX(estimatedXPos) != directions[index].second.second) {
+					if ((coordToCellX(estimatedXPos) != directions[index].second.second - 1)){
+						if (coordToCellX(estimatedXPos) != directions[index].second.second + 1) {
+							if (index != directions.size()) {
+								updatedDirections = aStarSearch(map, make_pair(coordToCellY(estimatedYPos), coordToCellX(estimatedXPos)), directions[index].second);
+								printf("New Directions made\n");
+								int i = 0;
+								while (i < updatedDirections.size() - 1) {
+									directions.insert(directions.begin() + index - 1, updatedDirections[i]);
+									i++;
+								}
+							}
+						}
+					}
+				}
+
+				if (coordToCellY(estimatedYPos) != directions[index].second.first) {
+					if (coordToCellY(estimatedYPos) != directions[index].second.first + 1){
+						if (coordToCellY(estimatedYPos) != directions[index].second.first - 1) {
+							if (index != directions.size()) {
+								updatedDirections = aStarSearch(map, make_pair(coordToCellY(estimatedYPos), coordToCellX(estimatedXPos)), directions[index].second);
+								printf("New Directions made\n");
+								int i = 0;
+								while (i < updatedDirections.size() - 1) {
+									directions.insert(directions.begin() + index - 1, updatedDirections[i]);
+									i++;
+								}
+							}
+						}
+					}
+				}
+					
+					
+					/*if (coordToCellY(estimatedYPos) != directions[index].second.first) {
+						updatedDirections = aStarSearch(map, make_pair(coordToCellY(estimatedYPos), coordToCellX(estimatedXPos)), directions[index].second);
+						printf("New Directions made\n");
+						int i = 0;
+						while (i < updatedDirections.size() - 1) {
+							directions.insert(directions.begin() + index - 1, updatedDirections[i]);
+							i++;
+						}
+					}*/
+
+				/*if ((coordToCellX(estimatedXPos) != directions[index].second.second) || (coordToCellY(estimatedYPos) != directions[index].second.first)) {
+					printf("X:%i, Y:%i\n", coordToCellX(estimatedXPos), coordToCellY(estimatedYPos));
+					updatedDirections = aStarSearch(map, make_pair(coordToCellY(estimatedYPos), coordToCellX(estimatedXPos)), directions[index].second);
+					printf("New Directions made\n");
+					int i = 0;
+					while (i < updatedDirections.size()-1) {
+						directions.insert(directions.begin() + index - 1, updatedDirections[i]);
+						i++;
+					}
+					printf("\nThe path is\n ");
+					for (auto& direction : directions) {
+						printf("->(%d, %d)", direction.second.first, direction.second.second);
+					}
+
+				}*/
 				targetTime = 0;							// Reset targetTime as it is not currently needed
 				SensorOI = 10;							// Set sensor of interest to dummy value
 				// Retrieving the following move
@@ -312,18 +384,29 @@ int virtualCarUpdate() {
 	}
 
 
-	if (virtualCarAngularSpeed != 0 && virtualCarLinearSpeed) {
-		estimatedAngle += virtualCarAngularSpeed;
+	// Use of odometry to track the car
+
+	// If we have set the car to be on an angle, update the angle the car is at
+	if (virtualCarAngularSpeed != 0) {									
+		estimatedAngle += (virtualCarAngularSpeed * movementTimer.getTimer());
+	}
+	
+	// Update car angle to be in range of 0 to 360 degrees
+	if (estimatedAngle > 360) {
+		estimatedAngle -= 360;
+	} else if (estimatedAngle < 0) {
+		estimatedAngle += 360;
 	}
 
-	if (-15 < estimatedAngle < 15) {
-		estimatedXPos += virtualCarLinearSpeed * movementTimer.getTimer();
-	} else if (estimatedAngle < 105) {
-		estimatedYPos -= virtualCarLinearSpeed * movementTimer.getTimer();
-	} else if (estimatedAngle < 195) {
-		estimatedXPos -= virtualCarLinearSpeed * movementTimer.getTimer();		
+	// Depending on what direction the car is facing, update our estimate for the car's X and Y position (unit is coord)
+	if ((estimatedAngle < 15)  || (estimatedAngle > 345)) {
+		estimatedXPos += (virtualCarLinearSpeed * movementTimer.getTimer());
+	} else if ((75 < estimatedAngle) && (estimatedAngle < 105)) {
+		estimatedYPos += (virtualCarLinearSpeed * movementTimer.getTimer());
+	} else if ((165 < estimatedAngle) && (estimatedAngle < 195)) {
+		estimatedXPos -= (virtualCarLinearSpeed * movementTimer.getTimer());
 	} else {
-		estimatedYPos += virtualCarLinearSpeed * movementTimer.getTimer();
+		estimatedYPos -= (virtualCarLinearSpeed * movementTimer.getTimer());
 	}
 
 	movementTimer.resetTimer();
@@ -338,7 +421,6 @@ int virtualCarUpdate() {
 void myMapRead(void) {
 	int rowIndex = 0;
 	int columnIndex;
-	printf("\n");
 	std::ifstream file("map/map.txt");
 	if (file.is_open()) {
 		std::string line;
@@ -352,7 +434,6 @@ void myMapRead(void) {
 			}
 			rowIndex++;
 		}
-		printf("\n");
 		file.close();
 	}
 }
@@ -493,10 +574,9 @@ void visitAllSpots(Pair src) {
 
 int main(int argc, char** argv)
 {
-	selectedLevel = 1;
+	selectedLevel = 2;
 	prevmove = DOWN;
 	src = make_pair(1, 1);
-	dest = make_pair(8, 13);
 
 	FungGlAppMainFuction(argc, argv);
 

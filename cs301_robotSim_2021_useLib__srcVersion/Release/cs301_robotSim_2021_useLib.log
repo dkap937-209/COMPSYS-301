@@ -1,36 +1,36 @@
 ﻿  fungYangCs301SimMain.cpp
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(96,24): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(152,41): warning C4244: 'argument': conversion from '_Ty1' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(95,24): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(156,40): warning C4244: 'argument': conversion from '_Ty1' to 'float', possible loss of data
           with
           [
               _Ty1=int
           ]
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(152,37): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(153,41): warning C4244: 'argument': conversion from '_Ty2' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(156,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(157,40): warning C4244: 'argument': conversion from '_Ty2' to 'float', possible loss of data
           with
           [
               _Ty2=int
           ]
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(153,37): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(185,19): warning C4018: '>': signed/unsigned mismatch
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(186,30): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(193,34): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(195,35): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(235,34): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(270,24): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(272,33): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(305,32): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(307,33): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(309,34): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(319,10): warning C4804: '<': unsafe use of type 'bool' in operation
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(320,68): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(322,68): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(324,68): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(326,68): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(346,38): warning C4018: '<': signed/unsigned mismatch
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(366,6): warning C4101: 'columnIndex': unreferenced local variable
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(423,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(477,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(157,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(191,17): warning C4018: '>': signed/unsigned mismatch
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(192,30): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(201,34): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(204,35): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(296,34): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(331,24): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(333,33): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(366,32): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(368,33): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(370,34): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(380,72): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(392,70): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(394,70): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(396,70): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(398,70): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(417,38): warning C4018: '<': signed/unsigned mismatch
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(436,6): warning C4101: 'columnIndex': unreferenced local variable
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(493,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\fungYangCs301SimMain.cpp(547,22): warning C4018: '<': signed/unsigned mismatch
   Generating code
   Finished generating code
 cs301_robotSim_lib_2021.lib(mainFungGLAppEngin.obj) : warning LNK4099: PDB 'cs301_robotSim_lib_2021.pdb' was not found with 'cs301_robotSim_lib_2021.lib(mainFungGLAppEngin.obj)' or at 'C:\Users\colpi\Documents\GitHub\COMPSYS-301\cs301_robotSim_2021_useLib__srcVersion\Release\cs301_robotSim_lib_2021.pdb'; linking object as if no debug info
